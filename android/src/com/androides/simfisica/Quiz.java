@@ -2,27 +2,22 @@ package com.androides.simfisica;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import static com.badlogic.gdx.files.FileHandle.*;
 
 public class Quiz extends ApplicationAdapter {
     private Stage stage;
@@ -39,9 +34,11 @@ public class Quiz extends ApplicationAdapter {
         image1.setPosition(10,300);
         skin = new Skin(Gdx.files.internal("Skin.json"));
         stage = new Stage(new ScreenViewport());
-        question = new TextField("La barra se va a inclinar a la izquierda, derecha o quedar centrada?", skin);
+        question = new TextField("La barra se va a inclinar a la izquierda, derecha o va a" +
+                " quedar centrada?", skin);
         question.setDisabled(true);
         final TextButton siguiente = new TextButton("Siguiente", skin);
+        siguiente.setTouchable(Touchable.disabled);
         final TextButton button = new TextButton("Centrado", skin);
         final TextButton button2 = new TextButton("Izquierda", skin);
         final TextButton button3 = new TextButton("Derecha", skin);
@@ -64,10 +61,49 @@ public class Quiz extends ApplicationAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 answerRight.show(stage);
+                siguiente.setTouchable(Touchable.enabled);
                 Timer.schedule(new Timer.Task(){
                     @Override
                     public void run(){
                         answerRight.hide();
+                    }
+                },2);
+            }
+        });
+        button2.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                answerRight.show(stage);
+                siguiente.setTouchable(Touchable.enabled);
+                Timer.schedule(new Timer.Task(){
+                    @Override
+                    public void run(){
+                        answerRight.hide();
+                    }
+                },2);
+            }
+        });
+        button3.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                answerRight.show(stage);
+                siguiente.setTouchable(Touchable.enabled);
+                Timer.schedule(new Timer.Task(){
+                    @Override
+                    public void run(){
+                        answerRight.hide();
+                    }
+                },2);
+            }
+        });
+        siguiente.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                answerWrong.show(stage);
+                Timer.schedule(new Timer.Task(){
+                    @Override
+                    public void run(){
+                        answerWrong.hide();
                     }
                 },2);
             }
