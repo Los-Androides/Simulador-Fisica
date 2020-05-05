@@ -1,8 +1,10 @@
 package com.androides.simfisica;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -46,6 +48,8 @@ public class AndroidLauncher extends AndroidApplication {
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
         textViewParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         textViewParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        helloText.setTextSize(30);
+        helloText.setTextColor(Color.BLUE);
 
         layout.addView(helloText, textViewParams);
 
