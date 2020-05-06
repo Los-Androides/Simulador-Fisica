@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4000BCD4">
+
+   <ImageView
+        android:id="@+id/tabla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="78dp"
+        android:layout_marginLeft="77dp"
+        android:layout_marginRight="78dp"
+        android:layout_marginStart="77dp"
+        android:src="@drawable/tabla"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="214dp"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/regla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginLeft="77dp"
+        android:layout_marginEnd="78dp"
+        android:layout_marginRight="78dp"
+        android:src="@drawable/regla"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <ImageView
+        android:id="@+id/ladrillo_10kg"
+        android:layout_width="48dp"
+        android:layout_height="42dp"
+        android:src="@drawable/kg10"
+        tools:layout_editor_absoluteX="216dp"
+        tools:layout_editor_absoluteY="259dp" />
+
+    <ImageView
+        android:id="@+id/ladrillo_20kg"
+        android:layout_width="113dp"
+        android:layout_height="55dp"
+        android:src="@drawable/kg20"
+        tools:layout_editor_absoluteX="495dp"
+        tools:layout_editor_absoluteY="239dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="446dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/mostrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mostrar"
+            android:textColor="#000000"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="52dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_valorMasa"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:text="Valores de las masas"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            android:checked="true"
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="47dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_fuerzaObj"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="Fuerzas de los objetos"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="13dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_nivel"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:text="Nivel"
+            android:textColor="#000000"
+            android:textSize="13sp"
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="81dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="630dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/posicion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posición"
+            android:textColor="#000000"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="52dp" />
+
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="79dp">
+
+            <RadioButton
+                android:id="@+id/radioBtn_ninguna"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:text="Ninguna"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
+
+
+            <RadioButton
+                android:id="@+id/radioBtn_regla"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:text="Regla"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
+
+            <RadioButton
+                android:id="@+id/radioBtn_marcas"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:text="Marcas"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
+
+        </RadioGroup>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text10k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="10Kg"
+        app:layout_constraintBottom_toTopOf="@+id/ladrillo_10kg"
+        app:layout_constraintEnd_toEndOf="@+id/ladrillo_10kg"
+        app:layout_constraintStart_toStartOf="@+id/ladrillo_10kg" />
+
+    <TextView
+        android:id="@+id/text20k"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="20Kg"
+        app:layout_constraintBottom_toTopOf="@+id/ladrillo_20kg"
+        app:layout_constraintEnd_toEndOf="@+id/ladrillo_20kg"
+        app:layout_constraintStart_toStartOf="@+id/ladrillo_20kg" />
+
+
+</android.support.constraint.ConstraintLayout>
