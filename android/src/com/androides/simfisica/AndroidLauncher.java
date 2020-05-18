@@ -1,7 +1,9 @@
 package com.androides.simfisica;
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,45 +17,30 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.androides.simfisica.SimuladorFisica;
 
-public class AndroidLauncher extends AndroidApplication {
-	@Override
+import android.support.v4.app.FragmentActivity;
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+
+import java.util.ArrayList;
+
+public class AndroidLauncher extends FragmentActivity implements  AndroidFragmentApplication.Callbacks {//AndroidApplication {
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//        setContentView(R.layout.main_layout);
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-//		initialize(new SimuladorFisica(), config);
 
-        // Create the layout
-        RelativeLayout layout = new RelativeLayout(this);
+//        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+//
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
-        // Create the libgdx View
-        View gameView = initializeForView(new SimuladorFisica(), config);
+        setContentView(R.layout.main_layout);
 
-        // Do the stuff that initialize() would do for you
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-
-        // Create and setup the TextView
-        TextView helloText = new TextView(this);
-        helloText.setText("Buenas");
-
-        // Add the libgdx view
-        layout.addView(gameView);
-
-        // Add the TextView
-        RelativeLayout.LayoutParams textViewParams =
-                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-        textViewParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        textViewParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        helloText.setTextSize(30);
-        helloText.setTextColor(Color.BLUE);
-
-        layout.addView(helloText, textViewParams);
-
-        // Hook it all up
-        setContentView(layout);
+        getSupportFragmentManager().beginTransaction().add(R.id.content_framelayout, new GameFragment()).commit();
 	}
+
+    @Override
+    public void exit() {
+
+    }
 }
