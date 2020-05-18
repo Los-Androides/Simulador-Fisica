@@ -2,13 +2,17 @@ package com.androides.simfisica;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.LinearLayout;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.FragmentActivity;
+
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends FragmentActivity implements  AndroidFragmentApplication.Callbacks {//AndroidApplication {
+public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {//AndroidApplication {
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -22,7 +26,9 @@ public class AndroidLauncher extends FragmentActivity implements  AndroidFragmen
 
         setContentView(R.layout.main_layout);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.content_framelayout, new GameFragment()).commit();
+        GameFragment libgdxFragment = new GameFragment();
+
+        getSupportFragmentManager().beginTransaction().add(R.id.content_framelayout, libgdxFragment).addToBackStack(null).commit();
 	}
 
     @Override

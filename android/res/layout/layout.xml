@@ -12,7 +12,7 @@
         android:layout_width="97dp"
         android:layout_height="115dp"
         android:layout_marginTop="284dp"
-        android:src="@drawable/BASE"
+        android:src="@drawable/base"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_marginLeft="77dp"
         android:layout_marginRight="78dp"
         android:layout_marginStart="77dp"
-        android:src="@drawable/TABLA"
+        android:src="@drawable/tabla"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
         android:id="@+id/ladrillo_10kg"
         android:layout_width="48dp"
         android:layout_height="42dp"
-        android:src="@drawable/KG10"
+        android:src="@drawable/kg10"
         tools:layout_editor_absoluteX="216dp"
         tools:layout_editor_absoluteY="259dp" />
 
@@ -44,7 +44,7 @@
         android:id="@+id/ladrillo_20kg"
         android:layout_width="113dp"
         android:layout_height="55dp"
-        android:src="@drawable/KG20"
+        android:src="@drawable/kg20"
         tools:layout_editor_absoluteX="495dp"
         tools:layout_editor_absoluteY="239dp" />
 
