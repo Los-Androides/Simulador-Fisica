@@ -39,7 +39,7 @@ public class SimuladorFisica extends  ApplicationAdapter {
 //		sr.setColor(Color.CYAN);
 
 //		batch.draw(img, 0, 0);
-		barra.render(batch;
+		barra.render(batch);
 //		sr.end();
 //		batch.end();
 		System.out.println("hola");
