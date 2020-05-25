@@ -12,28 +12,48 @@ import com.badlogic.gdx.math.Vector3;
 
 public class SimuladorFisica extends  ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+//	Texture img;
+	Barra barra;
+	private ShapeRenderer sr;
+
+	int screenWidth, screenHeight;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+//		img = new Texture("badlogic.jpg");
+		sr = new ShapeRenderer();
+
+		screenWidth = Gdx.graphics.getWidth();
+		screenHeight = Gdx.graphics.getHeight();
+
+		barra = new Barra("tabla.png", "regla.png", "base.png", screenWidth * .35f, screenHeight * .35f );
+
+
+
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 1 	, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+//		batch.begin();
+//		sr.begin(ShapeRenderer.ShapeType.Filled);
+//		sr.setColor(Color.CYAN);
+
+//		batch.draw(img, 0, 0);
+		barra.render(batch, sr);
+//		sr.end();
+//		batch.end();
 		System.out.println("hola");
 	}
 
 	@Override
 	public void dispose () {
 		batch.dispose();
-		img.dispose();
+//		img.dispose();
+		barra.dispose();
+		sr.dispose();
 	}
 
 //	private OrthographicCamera cam;
