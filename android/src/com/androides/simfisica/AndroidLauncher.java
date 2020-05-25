@@ -8,27 +8,25 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
+import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {//AndroidApplication {
+public class AndroidLauncher extends AppCompatActivity {//AndroidApplication {
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-//        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-//
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-
         setContentView(R.layout.main_layout);
 
         GameFragment libgdxFragment = new GameFragment();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.content_framelayout, libgdxFragment).addToBackStack(null).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        fragmentManager.beginTransaction().add(R.id.content_framelayout, libgdxFragment).addToBackStack(null).commit();
 	}
 
     @Override
