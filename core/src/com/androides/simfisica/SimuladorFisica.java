@@ -28,9 +28,6 @@ public class SimuladorFisica extends  ApplicationAdapter {
 		screenHeight = Gdx.graphics.getHeight();
 
 		barra = new Barra("tabla.png", "regla.png", "base.png", screenWidth * .35f, screenHeight * .35f );
-
-
-
 	}
 
 	@Override
@@ -42,7 +39,7 @@ public class SimuladorFisica extends  ApplicationAdapter {
 //		sr.setColor(Color.CYAN);
 
 //		batch.draw(img, 0, 0);
-		barra.render(batch, sr);
+		barra.render(batch;
 //		sr.end();
 //		batch.end();
 		System.out.println("hola");

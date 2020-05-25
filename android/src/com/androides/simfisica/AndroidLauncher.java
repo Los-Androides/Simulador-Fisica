@@ -12,23 +12,24 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends AndroidApplication {//AndroidApplication {
-
+public class AndroidLauncher extends AppCompatActivity {//AndroidApplication {
+	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
-    protected void onCreate (Bundle savedInstanceState) {
+	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
-        // Crear la transacción
+        setContentView(R.layout.main_layout);
+
+        GameFragment libgdxFragment = new GameFragment();
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        // Agregar el fragmento
-        fragmentTransaction.add(R.id.content_framelayout, initializeForView(new SimuladorFisica(), config)).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().add(R.id.content_framelayout, libgdxFragment).addToBackStack(null).commit();
     }
 }
