@@ -1,8 +1,17 @@
 package com.androides.simfisica;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,18 +27,19 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends AppCompatActivity {//AndroidApplication {
+public class AndroidLauncher extends AndroidApplication {
 	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.main_layout);
 
-        GameFragment libgdxFragment = new GameFragment();
+        AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+        View gameView = initializeForView(new SimuladorFisica(), config);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FrameLayout frameLayout = findViewById(R.id.content_framelayout);
+        frameLayout.addView(gameView);
 
-        fragmentManager.beginTransaction().add(R.id.content_framelayout, libgdxFragment).addToBackStack(null).commit();
+        frameLayout.setForegroundGravity(0);
     }
 }
