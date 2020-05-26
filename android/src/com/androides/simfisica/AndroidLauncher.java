@@ -24,12 +24,13 @@ public class AndroidLauncher extends AppCompatActivity {//AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.main_layout);
+        setContentView(R.layout.main_layout); //aquí le cambio por layout
 
         GameFragment libgdxFragment = new GameFragment();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
 
+        //lo cambio por el framelayout que cree en layout
         fragmentManager.beginTransaction().add(R.id.content_framelayout, libgdxFragment).addToBackStack(null).commit();
     }
 }

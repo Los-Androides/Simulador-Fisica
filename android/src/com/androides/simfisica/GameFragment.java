@@ -17,6 +17,8 @@ public class GameFragment extends AndroidApplication {
     {
         // return the GLSurfaceView on which libgdx is drawing game stuff
 
+        //Copiae lo de
+
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
