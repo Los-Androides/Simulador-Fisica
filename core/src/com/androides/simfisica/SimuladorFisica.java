@@ -27,7 +27,10 @@ public class SimuladorFisica extends  ApplicationAdapter {
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 
-		barra = new Barra("tabla.png", "regla.png", "base.png", screenWidth * .35f, screenHeight * .35f );
+		double width = screenWidth * .70f;
+		double height = screenHeight * .15f;
+
+		barra = new Barra("tabla.png", "regla.png", "base.png", "base.png", width, height, (int) ((screenWidth - width) / 2), (int) ((screenHeight - height) / 2) );
 	}
 
 	@Override

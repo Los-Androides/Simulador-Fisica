@@ -1,6 +1,7 @@
 package com.androides.simfisica;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Bloque {
     Texture bloqueImg;
@@ -41,6 +42,21 @@ public class Bloque {
 
     public double calcularPeso() {
         return masa * gravedad;
+    }
+
+    public void render(SpriteBatch batch, Barra barra) {
+        int originX = ((int) barra.width / 2);
+        int originY = -((int) barra.height / 2);
+        batch.draw(bloqueImg, barra.posX, barra.posY + (int) barra.height, (int) width, (int) height);
+        batch.draw(bloqueImg,
+                barra.posX, barra.posY + (int) barra.height,
+                originX, originY,
+                (int) width, (int) height,
+                1, 1,
+                (float) barra.rotation,
+                0, 0,
+                bloqueImg.getWidth(), bloqueImg.getHeight(),
+                false, false);
     }
 
 }
