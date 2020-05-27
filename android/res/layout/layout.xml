@@ -19,20 +19,6 @@
 
 
     <ImageView
-        android:id="@+id/tabla"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="78dp"
-        android:layout_marginLeft="77dp"
-        android:layout_marginRight="78dp"
-        android:layout_marginStart="77dp"
-        android:src="@drawable/tabla"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="214dp" />
-
-    <ImageView
         android:id="@+id/ladrillo_10kg"
         android:layout_width="48dp"
         android:layout_height="42dp"
