@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/content_gamelayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#4000BCD4">
 
-    <FrameLayout
-        android:id="@+id/content_gamelayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"> </FrameLayout>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginLeft="10dp"
+            tools:layout_editor_absoluteX="446dp"
+            tools:layout_editor_absoluteY="16dp">
 
-            >
+            <TextView
+                android:id="@+id/mostrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mostrar"
+                android:textColor="#000000"
+                tools:layout_editor_absoluteX="97dp"
+                tools:layout_editor_absoluteY="52dp" />
 
             <CheckBox
                 android:id="@+id/checkbox_valorMasa"
@@ -51,22 +58,34 @@
                 tools:layout_editor_absoluteX="503dp"
                 tools:layout_editor_absoluteY="81dp" />
 
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#D7EAE6D9"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="11dp">
+
             <RadioGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="157dp"
                 tools:layout_editor_absoluteY="79dp">
 
-                <RadioButton
-                    android:id="@+id/radioBtn_ninguna"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:text="Ninguna"
-                    android:textColor="#000000"
-                    android:textSize="13sp"
-                    tools:layout_editor_absoluteX="62dp"
-                    tools:layout_editor_absoluteY="68dp" />
 
+                <TextView
+                    android:id="@+id/posicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" Posición"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:layout_editor_absoluteX="97dp"
+                    tools:layout_editor_absoluteY="52dp" />
 
                 <RadioButton
                     android:id="@+id/radioBtn_regla"
@@ -88,43 +107,23 @@
                     tools:layout_editor_absoluteX="62dp"
                     tools:layout_editor_absoluteY="68dp" />
 
+                <RadioButton
+                    android:id="@+id/radioBtn_ninguna"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:text="Ninguna"
+                    android:textColor="#000000"
+                    android:textSize="13sp"
+                    tools:layout_editor_absoluteX="62dp"
+                    tools:layout_editor_absoluteY="68dp" />
+
             </RadioGroup>
-
-
-            <TextView
-                android:id="@+id/posicion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Posición"
-                android:textColor="#000000"
-                tools:layout_editor_absoluteX="97dp"
-                tools:layout_editor_absoluteY="52dp" />
-
-
-            <TextView
-                android:id="@+id/mostrar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mostrar"
-                android:textColor="#000000"
-                tools:layout_editor_absoluteX="97dp"
-                tools:layout_editor_absoluteY="52dp" />
 
 
         </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/base"
-        android:layout_width="97dp"
-        android:layout_height="115dp"
-        android:layout_marginTop="284dp"
-        android:src="@drawable/base"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-</LinearLayout>
+</FrameLayout>
