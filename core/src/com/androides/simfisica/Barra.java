@@ -17,6 +17,7 @@ public class Barra {
     boolean showBarra;
     boolean showRegla;
     boolean showMarca;
+    int j = 0;
 
     double width;
     double height;
@@ -31,8 +32,7 @@ public class Barra {
         this.marcaImg = new Texture(marcaPath);
         this.soporteImg = new Texture(soportePath);
 
-        this.bloques = new Bloque[10];
-        this.bloques[0] = new Bloque("kg5.png", 400, 100,10);
+        this.bloques = new Bloque[16];
 
         this.showBarra = true;
         this.showRegla = false;
@@ -54,6 +54,8 @@ public class Barra {
     public Texture getMarcaImg() { return marcaImg; }
     public Texture getSoporteImg() { return soporteImg; }
 
+    public int getPosX() { return posX; }
+    public int getPosY() { return posY; }
     public double getWidth() { return width; }
     public double getHeight() { return height; }
     public double getRotation() { return rotation; }
@@ -69,6 +71,8 @@ public class Barra {
     public void setMarcaImg(String path) { marcaImg = new Texture(path); }
     public void setSoporteImg(String path) { soporteImg = new Texture(path); }
 
+    public void setPosX(int val) { posX = val; }
+    public void setPosY(int val) { posY = val; }
     public void setWidth(double val) { width = val; }
     public void setHeight(double val) { height = val; }
     public void setRotation(double val) { rotation = val; }
@@ -80,15 +84,28 @@ public class Barra {
     // methods
 
     public double calcularTorqueIzquierdo() {
-        return 0;
+
+        double torque = 0;
+        for (int i = 0;  i < bloques.length / 2; i++) {
+            torque += bloques[i].getPeso() * (((bloques.length / 2) - i) / 2);
+        }
+        return torque;
     }
 
     public double calcularTorqueDerecho() {
-        return 0;
+        double torque = 0;
+        for (int i = 0;  i < bloques.length / 2; i++) {
+            torque += bloques[i + (bloques.length / 2)].getPeso() * ((i + 1) / 2);
+        }
+        return torque;
     }
 
-    public boolean addBloque() {
-        return true;
+    public boolean addBloque(Bloque bloque, int pos) {
+        if (bloques[pos] == null) {
+            bloques[pos] = bloque;
+            return true;
+        }
+        return false;
     }
 
     public void render(SpriteBatch batch) {
@@ -117,7 +134,19 @@ public class Barra {
                 barraImg.getWidth(), barraImg.getHeight(),
                 false, false);
 
-        bloques[0].render(batch, this);
+        for (int i = 0;  i < bloques.length; i++) {
+            bloques[i].render(batch, this, i);
+        }
+
+//        int num = 30;
+//
+//        bloques[j / num].render(batch, this, j / num);
+//
+//        j++;
+//
+//        if (j > (16 * num - 1)) {
+//            j = 0;
+//        }
 
         rotation++;
 
@@ -128,5 +157,8 @@ public class Barra {
         barraImg.dispose();
         reglaImg.dispose();
         marcaImg.dispose();
+        for (int i = 0;  i < bloques.length; i++) {
+            bloques[i].dispose();
+        }
     }
 }

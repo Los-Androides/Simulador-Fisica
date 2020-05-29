@@ -21,31 +21,38 @@ public class SimuladorFisica extends  ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-//		img = new Texture("badlogic.jpg");
 		sr = new ShapeRenderer();
 
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 
 		double width = screenWidth * .70f;
-		double height = screenHeight * .15f;
+		double height = screenHeight * .05f;
 
 		barra = new Barra("tabla.png", "regla.png", "base.png", "base.png", width, height, (int) ((screenWidth - width) / 2), (int) ((screenHeight - height) / 2) );
+
+		System.out.println(barra.getWidth());
+		System.out.println((barra.getWidth() / 16));
+		System.out.println(height);
+
+        for (int i = 0; i < 16; i++) {
+        	double wb = (barra.getWidth() / 2) * .9f;
+
+//			double w = (barra.getWidth() / 2);//* .7f;
+			double w = wb / 8;//* .7f;
+            double h = screenHeight * .05f;
+            Bloque bloque = new Bloque("kg5.png", w, h,5 / 9.8);
+            barra.addBloque(bloque, i);
+        }
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 1 	, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		batch.begin();
-//		sr.begin(ShapeRenderer.ShapeType.Filled);
-//		sr.setColor(Color.CYAN);
 
-//		batch.draw(img, 0, 0);
 		barra.render(batch);
-//		sr.end();
-//		batch.end();
-		System.out.println("hola");
+//		System.out.println("hola");
 	}
 
 	@Override
@@ -94,5 +101,34 @@ public class SimuladorFisica extends  ApplicationAdapter {
 //	public void dispose() {
 //		sr.dispose();
 //	}
+
+//    int fps = 50;
+//    // time for each tick in nano segs
+//    double timeTick = 1000000000 / fps;
+//    // initializing delta
+//    double delta = 0;
+//    // define now to use inside the loop
+//    long now;
+//    // initializing last time to the computer time in nanosecs
+//    long lastTime = System.nanoTime();
+//        while (running) {
+//        // setting the time now to the actual time
+//        now = System.nanoTime();
+//        // acumulating to delta the difference between times in timeTick units
+//        delta += (now - lastTime) / timeTick;
+//        // updating the last time
+//        lastTime = now;
+//
+//        // if delta is positive we tick the game
+//        if (delta >= 1) {
+//            try {
+//                tick();
+//                render();
+//                delta--;
+//            } catch (SQLException ex) {
+//                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
 
 }
