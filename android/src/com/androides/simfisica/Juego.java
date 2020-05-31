@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -34,6 +36,36 @@ public class Juego extends Fragment {
         void onRadioButtonChoice(int choice);
     }
 
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.valorMasa:
+                if (checked){
+                    // Muestra la masa de los objetos
+                } else{
+                   //No muestres la masa de los objetos
+                }
+                break;
+            case R.id.fuerzaObj:
+                if (checked){
+                    // Muestra la fuerza de los objetos
+                } else{
+                    //No muestres la fuerza de los objetos
+                }
+                break;
+            case R.id.nivel:
+                if (checked){
+                    // Muestra el nivel
+                } else{
+                    //No muestres el nivel
+                }
+                break;
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,7 +74,10 @@ public class Juego extends Fragment {
 
         final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
 
+        //Checas si hay una checkbox seleccionada
+        onCheckboxClicked(rootView);
 
+        //Checa si hay un RadioButton seleccionado
         if(getArguments().containsKey(OPCION_MOSTRAR)){
             mRadioButtonChoice=getArguments().getInt(OPCION_MOSTRAR);
 
@@ -51,6 +86,7 @@ public class Juego extends Fragment {
             }
         }
 
+        //Cuando el usuario selecciona alguna opción del menú Mostrar
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -58,11 +94,10 @@ public class Juego extends Fragment {
                 View radioButton = radioGroup.findViewById(checkedId);
                 int index = radioGroup.indexOfChild(radioButton);
 
-
                 switch (index){
 
                     case REGLA:
-                        //Agrega método que dibuje la regla
+                        Toast.makeText(getContext(), "regla", Toast.LENGTH_SHORT);
                         mRadioButtonChoice = REGLA;
                         mListener.onRadioButtonChoice(REGLA);
                         break;
@@ -80,7 +115,6 @@ public class Juego extends Fragment {
                         break;
 
                 }
-
 
             }
         });
