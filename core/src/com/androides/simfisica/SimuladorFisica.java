@@ -12,16 +12,17 @@ import com.badlogic.gdx.math.Vector3;
 
 public class SimuladorFisica extends  ApplicationAdapter {
 	SpriteBatch batch;
-//	Texture img;
+	Texture background;
 	Barra barra;
-	private ShapeRenderer sr;
+//	private ShapeRenderer sr;
 
 	int screenWidth, screenHeight;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		sr = new ShapeRenderer();
+//		sr = new ShapeRenderer();
+		background = new Texture("background.png");
 
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
@@ -29,7 +30,12 @@ public class SimuladorFisica extends  ApplicationAdapter {
 		double width = screenWidth * .70f;
 		double height = screenHeight * .05f;
 
-		barra = new Barra("tabla.png", "regla.png", "base.png", "base.png", width, height, (int) ((screenWidth - width) / 2), (int) ((screenHeight - height) / 2) );
+		double x = (screenWidth - width) / 2;
+		double y = (screenHeight * .365f) ;
+
+//		Gdx.graphics.getHeight() * .34f
+
+		barra = new Barra("tabla.png", "regla.png", "base.png", "base.png", width, height, (int) (x), (int) (y));
 
 		System.out.println(barra.getWidth());
 		System.out.println((barra.getWidth() / 16));
@@ -48,19 +54,24 @@ public class SimuladorFisica extends  ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 1 	, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//		Gdx.gl.glClearColor(1, 1, 0, 1);
+//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+
+		batch.draw(background, 0, 0, screenWidth, screenHeight);
 
 		barra.render(batch);
+
+		batch.end();
 //		System.out.println("hola");
 	}
 
 	@Override
 	public void dispose () {
 		batch.dispose();
-//		img.dispose();
+		background.dispose();
 		barra.dispose();
-		sr.dispose();
+//		sr.dispose();
 	}
 
 //	private OrthographicCamera cam;

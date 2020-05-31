@@ -110,19 +110,16 @@ public class Barra {
 
     public void render(SpriteBatch batch) {
 
-//        int x = (Gdx.graphics.getWidth() / 2) - ((int) width / 2);
-//        int y = (Gdx.graphics.getHeight() / 2) - ((int) height / 2);
-
         int originX = ((int) width / 2);
         int originY = ((int) height / 2);
-
-//        int x = originX + ((int) width / 2);
-//        int y = originY + ((int) height / 2);
 
         float scaleX = 1;
         float scaleY = 1;
 
-        batch.begin();
+        double widthBase = Gdx.graphics.getWidth() * .17f;
+        double heightBase = Gdx.graphics.getHeight() * .34f;
+
+        batch.draw(soporteImg, (int) (posX + originX - (widthBase / 2)), (int) (posY + originY - (widthBase * .9f)), (int) (widthBase ), (int) (heightBase));
 
         batch.draw(barraImg,
                 posX, posY,
@@ -134,23 +131,12 @@ public class Barra {
                 barraImg.getWidth(), barraImg.getHeight(),
                 false, false);
 
+
         for (int i = 0;  i < bloques.length; i++) {
             bloques[i].render(batch, this, i);
         }
 
-//        int num = 30;
-//
-//        bloques[j / num].render(batch, this, j / num);
-//
-//        j++;
-//
-//        if (j > (16 * num - 1)) {
-//            j = 0;
-//        }
-
         rotation += 100 * Gdx.graphics.getDeltaTime();
-
-        batch.end();
     }
 
     public void dispose() {

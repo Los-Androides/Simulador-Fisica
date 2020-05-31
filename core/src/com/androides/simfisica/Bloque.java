@@ -52,34 +52,28 @@ public class Bloque {
 
         double percentage = .75f;
         double val = 0;
+        
         double offset = 0;
         double offHelp = 0;
-
         offHelp = (1f - percentage) / 2;
-        offset = ((offHelp * width));// * (pos + 1));
+        offset = ((offHelp * width));
 
-
-
+        double extra;
+        double half = (width / 2);
         double w = this.width * percentage;
 
         if (pos < 8) {
             val = ((pos) * (int)(width));
-            x = (int) (barra.getPosX() + (width / 2) + val + offset);//  + offset);
-//            x = (int) (barra.getPosX() + val + (width / 2) + offset);
-//            x = (int) (barra.getPosX() + val + (width / 2) + offset);
+            extra = 0;
 
         } else {
             int posicion = (16 - pos);
-            val = (posicion * width);
-            x = (int) (barra.getPosX() + barra.getWidth() - (width / 2) + offset - val);
-//            x = (int) (barra.getPosX() + barra.getWidth() - (width * 8) + val + offset);
+            val = -(posicion * width);
+            half *= -1;
+            extra = barra.getWidth();
         }
 
-//        System.out.println("\nBloque " + pos);
-//        System.out.println("Screen width: " + Gdx.graphics.getWidth() / 2);
-//        System.out.println("Screen height: " + Gdx.graphics.getHeight() / 2);
-//        System.out.println("OriginX: " + (barra.getPosX() + originX));
-//        System.out.println("OriginY: " + (barra.getPosY() - originY));
+        x = (int) (barra.getPosX() + half + val + offset + extra);
 
         originX -= x - barra.getPosX();
 
