@@ -3,6 +3,13 @@
 
     <string name="app_name">SImulador-Fisica</string>
     <string name="question">A que lado se inclina la barra o esta balanceada?</string>
+    <string name="eq">Equilibrame!</string>
+    <string name="revisar">Revisar</string>
+    <string name="nivel">Nivel: </string>
+    <string name="reto">Reto 1 de 6</string>
+    <string name="puntuacion">Puntuacion:</string>
+    <string name="reset">Empezar de nuevo</string>
+    <string name = "siguiente">Siguiente</string>
 
     <!-- Text for the exception message in FragmentCommunicate. -->
     <string name="exception_message">must implement OnFragmentInteractionListener</string>
