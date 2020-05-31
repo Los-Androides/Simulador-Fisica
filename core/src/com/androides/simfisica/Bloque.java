@@ -13,17 +13,34 @@ public class Bloque {
     private double width;
     private double height;
 
-//    double peso;
-//    double posicion;
-//    double fuerza;
-
     private double peso;
+    private int tipo;
 
-    public Bloque(String bloquePath, double w, double h, double p) {
-        this.bloqueImg = new Texture(bloquePath);
+    public Bloque(double w, double h, double p, int num) {
         this.width = w;
         this.height = h;
         this.peso = p;
+
+        this.tipo = num;
+
+        String path = "";
+
+        switch (num) {
+            case 1:
+                path = "kg5.png";
+                break;
+            case 2:
+                path = "kg10.png";
+                break;
+            case 3:
+                path = "kg15.png";
+                break;
+            case 4:
+                path = "kg20.png";
+                break;
+        }
+
+        this.bloqueImg = new Texture(path);
     }
 
     // getters
@@ -31,7 +48,7 @@ public class Bloque {
     public Texture getBloqueImg() { return bloqueImg; }
     public double getWidth()      { return width; }
     public double getHeight()     { return height; }
-    public double getPeso()       { return peso; }
+    public double getPeso()       { return peso * tipo; }
 
     // setters
 
@@ -52,7 +69,7 @@ public class Bloque {
 
         double percentage = .75f;
         double val = 0;
-        
+
         double offset = 0;
         double offHelp = 0;
         offHelp = (1f - percentage) / 2;
@@ -80,7 +97,7 @@ public class Bloque {
         batch.draw(bloqueImg,
                 x, y,
                 (int) originX, (int) originY,
-                (int) w, (int) height,
+                (int) w, (int) (height * tipo),
                 1, 1,
                 (float) barra.rotation,
                 0, 0,

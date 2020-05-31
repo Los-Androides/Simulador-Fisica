@@ -14,14 +14,19 @@ public class SimuladorFisica extends  ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
 	Barra barra;
-//	private ShapeRenderer sr;
 
 	int screenWidth, screenHeight;
+
+	double torqueDerecho, torqueIzquierdo, diff;
+	double rotacion;
+	double aceleracion;
+
+	boolean calcularTorque;
+	boolean aceleracionNegativa;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-//		sr = new ShapeRenderer();
 		background = new Texture("background.png");
 
 		screenWidth = Gdx.graphics.getWidth();
@@ -33,28 +38,40 @@ public class SimuladorFisica extends  ApplicationAdapter {
 		double x = (screenWidth - width) / 2;
 		double y = (screenHeight * .365f) ;
 
-//		Gdx.graphics.getHeight() * .34f
+		barra = new Barra(width, height, (int) (x), (int) (y));
 
-		barra = new Barra("tabla.png", "regla.png", "base.png", "base.png", width, height, (int) (x), (int) (y));
+//		System.out.println(barra.getWidth());
+//		System.out.println((barra.getWidth() / 16));
+//		System.out.println(height);
 
-		System.out.println(barra.getWidth());
-		System.out.println((barra.getWidth() / 16));
-		System.out.println(height);
+//        for (int i = 0; i < 16; i++) {
+//        	double wb = (barra.getWidth() / 2) * .9f;
+//
+//			double w = wb / 8;
+//            double h = screenHeight * .03f;
+//            Bloque bloque = new Bloque(w, h,5, (i % 4) + 1);
+//            barra.addBloque(bloque, i);
+//        }
 
-        for (int i = 0; i < 16; i++) {
-        	double wb = (barra.getWidth() / 2) * .9f;
+        double wb = (barra.getWidth() / 2) * .9f;
 
-//			double w = (barra.getWidth() / 2);//* .7f;
-			double w = wb / 8;//* .7f;
-            double h = screenHeight * .05f;
-            Bloque bloque = new Bloque("kg5.png", w, h,5 / 9.8);
-            barra.addBloque(bloque, i);
-        }
+        double w = wb / 8;
+        double h = screenHeight * .03f;
+        Bloque bloque = new Bloque(w, h,5, 2);
+        barra.addBloque(bloque, 7);
+
+        torqueDerecho = 0;
+        torqueIzquierdo = 0;
+        diff = 0;
+        rotacion = 0;
+        aceleracion = 0;
+
+        calcularTorque = true;
+        aceleracionNegativa = false;
 	}
 
 	@Override
 	public void render () {
-//		Gdx.gl.glClearColor(1, 1, 0, 1);
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 
@@ -62,8 +79,53 @@ public class SimuladorFisica extends  ApplicationAdapter {
 
 		barra.render(batch);
 
+		if (calcularTorque) {
+			torqueIzquierdo = barra.calcularTorqueIzquierdo();
+			torqueDerecho = barra.calcularTorqueDerecho();
+
+			diff = torqueIzquierdo - torqueDerecho;
+
+			System.out.println("Valores ----------------------------------------");
+			System.out.println("Izq " + torqueIzquierdo);
+			System.out.println("Der " + torqueDerecho);
+			System.out.println("diff " + diff);
+			System.out.println("rot " + rotacion);
+
+			aceleracion = Math.pow(diff, 0.9);
+
+			calcularTorque = false;
+			aceleracionNegativa = (aceleracion > 0) ? false : true;
+		}
+
+        if (aceleracion != 0) {
+			rotacion += aceleracion * Gdx.graphics.getDeltaTime();
+
+			double val = 0.5 * Gdx.graphics.getDeltaTime();
+			if (aceleracionNegativa) {
+				aceleracion += val;
+				if (aceleracion > 0) {
+					aceleracion = 0;
+				}
+			} else {
+				aceleracion -= val;
+				if (aceleracion < 0) {
+					aceleracion = 0;
+				}
+			}
+
+
+			if (rotacion > 22) { // limite izquierd
+				rotacion = 22;
+				aceleracion = 0;
+			} else if (rotacion < -22) { // limite derecho
+				rotacion = -22;
+                aceleracion = 0;
+			}
+
+			barra.setRotation(rotacion);
+		}
+
 		batch.end();
-//		System.out.println("hola");
 	}
 
 	@Override
@@ -71,7 +133,6 @@ public class SimuladorFisica extends  ApplicationAdapter {
 		batch.dispose();
 		background.dispose();
 		barra.dispose();
-//		sr.dispose();
 	}
 
 //	private OrthographicCamera cam;
