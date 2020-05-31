@@ -43,87 +43,37 @@ public class Bloque {
     // methods
 
     public void render(SpriteBatch batch, Barra barra, int pos) {
+
+        int x;
+        int y = barra.posY + (int) barra.height;
+
         double originX = (barra.getWidth() / 2);
         double originY = -(barra.getHeight() / 2);
 
-        double num = originX;
-
-//        ShapeRenderer sr = new ShapeRenderer();
-//
-//        sr.begin(ShapeRenderer.ShapeType.Filled);
-//		sr.setColor(Color.GREEN);
-//		sr.circle((int) (barra.getPosX() + originX), (int) (barra.getPosY() - originY), 32);
-//		sr.end();
-
         double percentage = .75f;
-        double extra = (barra.getWidth() / 2) * .1f;
-
-        int x; //= barra.getPosX();
-        int y = barra.posY + (int) barra.height;
-
-        double w = width * percentage;
-
         double val = 0;
         double offset = 0;
         double offHelp = 0;
 
-//        x = (int) (barra.getPosX() + (width / 2));// + val + offset);
+        offHelp = (1f - percentage) / 2;
+        offset = ((offHelp * width));// * (pos + 1));
 
+
+
+        double w = this.width * percentage;
 
         if (pos < 8) {
-//            double val = ((pos) * width);
             val = ((pos) * (int)(width));
-            offHelp = (1f - percentage) / 2;
-            offset = ((offHelp * width) * (pos + 1));
-            x = (int) (barra.getPosX() + val + (width / 2) + offset);
-//            originX -= val;
-//            x = (int) (barra.getPosX() + val + offset);
-            //originX -= x - barra.getPosX();//(offset);//(val);// + offset);//((1f - percentage) / 2));
-//            originX = 0;
-//            originX -= x;
-//            originX += (barra.getWidth() / 2);
+            x = (int) (barra.getPosX() + (width / 2) + val + offset);//  + offset);
+//            x = (int) (barra.getPosX() + val + (width / 2) + offset);
+//            x = (int) (barra.getPosX() + val + (width / 2) + offset);
 
-//            originX -= offset;
-
-//            originX = (-x + (barra.getWidth() / 2));
-
-
-//            sr.begin(ShapeRenderer.ShapeType.Filled);
-//            sr.setColor(Color.BLACK);
-//            sr.circle((int) (x), (int) (y), 40);
-//            sr.setColor(Color.RED);
-//            sr.circle((int) (x + originX), (int) (barra.getPosY() - originY), 50);
-//            sr.setColor(Color.BLUE);
-//            sr.circle((int) (barra.getPosX()), (int) (barra.getPosY()), 50);
-//            sr.end();
         } else {
-//            double val = (pos * width);
-//            originX -= val + x;
-//            x -= 2 * x;
-//            x += barra.getPosX() + barra.getWidth() - val;
-
-            val = ((pos - 8) * (int)(width));
-            x = (int) (barra.getPosX() + barra.getWidth() - (width * 8) + val);
-//            originX -= x;
-//            originX -= x;//(offset);//(val);// + offset);//((1f - percentage) / 2));
-//            originX = 0;
-//            originX -= x;
-//            originX += (barra.getWidth() / 2);
-
-//            sr.begin(ShapeRenderer.ShapeType.Filled);
-//            sr.setColor(Color.CYAN);
-//            sr.circle((int) (x + originX), (int)    (barra.getPosY() - originY), 32);
-//            sr.end();
+            int posicion = (16 - pos);
+            val = (posicion * width);
+            x = (int) (barra.getPosX() + barra.getWidth() - (width / 2) + offset - val);
+//            x = (int) (barra.getPosX() + barra.getWidth() - (width * 8) + val + offset);
         }
-
-//        originX -= x;//(offset);//(val);// + offset);//((1f - percentage) / 2));
-//
-//        sr.begin(ShapeRenderer.ShapeType.Filled);
-//        sr.setColor(Color.CYAN);
-//        sr.circle((int) (x + originX), 400, 32);
-//        sr.end();
-
-//        sr.dispose();
 
 //        System.out.println("\nBloque " + pos);
 //        System.out.println("Screen width: " + Gdx.graphics.getWidth() / 2);

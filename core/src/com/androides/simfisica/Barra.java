@@ -148,7 +148,7 @@ public class Barra {
 //            j = 0;
 //        }
 
-        rotation++;
+        rotation += 100 * Gdx.graphics.getDeltaTime();
 
         batch.end();
     }
