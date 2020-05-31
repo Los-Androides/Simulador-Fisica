@@ -68,6 +68,7 @@
                 tools:layout_editor_absoluteY="81dp" />
 
             <RadioGroup
+                android:id="@+id/radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:layout_editor_absoluteX="157dp"
