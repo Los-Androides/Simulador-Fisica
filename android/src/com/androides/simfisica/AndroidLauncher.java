@@ -32,14 +32,16 @@ public class AndroidLauncher extends AndroidApplication {
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
+
+        setContentView(R.layout.layout);
 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         View gameView = initializeForView(new SimuladorFisica(), config);
 
-        FrameLayout frameLayout = findViewById(R.id.content_framelayout);
+        FrameLayout frameLayout = findViewById(R.id.content_gamelayout);
         frameLayout.addView(gameView);
 
         frameLayout.setForegroundGravity(0);
+
     }
 }
