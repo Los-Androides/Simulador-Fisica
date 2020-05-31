@@ -2,13 +2,17 @@ package com.androides.simfisica;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import androidx.fragment.app.Fragment;
 
@@ -72,6 +76,7 @@ public class Juego extends Fragment {
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
 
+
         final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
 
         //Checas si hay una checkbox seleccionada
@@ -97,7 +102,7 @@ public class Juego extends Fragment {
                 switch (index){
 
                     case REGLA:
-                        Toast.makeText(getContext(), "regla", Toast.LENGTH_SHORT);
+                        Log.d("myTag", "regluki");
                         mRadioButtonChoice = REGLA;
                         mListener.onRadioButtonChoice(REGLA);
                         break;

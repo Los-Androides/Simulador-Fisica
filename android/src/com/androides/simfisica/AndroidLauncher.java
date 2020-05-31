@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,13 +33,15 @@ public class AndroidLauncher extends AndroidApplication {
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("myTag", "launcher");
 
-        setContentView(R.layout.layout);
+        setContentView(R.layout.pantalla_juego);
+
 
         AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
         View gameView = initializeForView(new SimuladorFisica(), config);
 
-        FrameLayout frameLayout = findViewById(R.id.content_gamelayout);
+        FrameLayout frameLayout = findViewById(R.id.content_fragmentJuego);
         frameLayout.addView(gameView);
 
         frameLayout.setForegroundGravity(0);
