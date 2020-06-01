@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
@@ -23,6 +24,7 @@ public class Juego extends Fragment {
     private static final int NINGUNO = 3;
     public int mRadioButtonChoice = NINGUNO;
 
+
     public Juego() {
 
     }
@@ -36,7 +38,7 @@ public class Juego extends Fragment {
 
         return fragment;
     }
-
+    
 
     interface OnFragmentInteractionListener{
         void onRadioButtonChoice(int choice);
@@ -45,35 +47,6 @@ public class Juego extends Fragment {
 
 
 
- //   public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-  //      boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-    //    switch(view.getId()) {
-      //      case R.id.valorMasa:
-        //        if (checked){
-                    // Muestra la masa de los objetos
-          //      } else{
-                   //No muestres la masa de los objetos
-            //    }
-              //  break;
-           // case R.id.fuerzaObj:
-            //    if (checked){
-                    // Muestra la fuerza de los objetos
-             //   } else{
-                    //No muestres la fuerza de los objetos
-              //  }
-               // break;
-        //    case R.id.nivel:
-          //      if (checked){
-                    // Muestra el nivel
-            //    } else{
-                    //No muestres el nivel
-              //  }
-               // break;
-       // }
-   // }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +56,20 @@ public class Juego extends Fragment {
 
 
         final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
+        final CheckBox checkFuerzaObj = rootView.findViewById(R.id.checkbox_fuerzaObj);
+        final CheckBox checkMasa = rootView.findViewById(R.id.checkbox_valorMasa);
+        final CheckBox checkNivel = rootView.findViewById(R.id.checkbox_nivel);
+
+
+        if(checkFuerzaObj.isChecked()){
+            Log.d("myTag","Guerza");
+        }
+        if(checkMasa.isChecked()){
+            Log.d("myTag","Masa");
+        }
+        if(checkNivel.isChecked()){
+            Log.d("myTag","Nivel");
+        }
 
 
         //Checas si hay una checkbox seleccionada
@@ -109,13 +96,15 @@ public class Juego extends Fragment {
 
                     case REGLA:
                         //Agrega método que dibuje la regla
+                        Log.d("myTag","Regla");
+
                         mRadioButtonChoice = REGLA;
                         mListener.onRadioButtonChoice(REGLA);
                         break;
 
                     case MARCA:
                         //Agrega método que dibuje la MARCA
-
+                        Log.d("myTag","Marca");
                         mRadioButtonChoice = MARCA;
                         mListener.onRadioButtonChoice(MARCA);
                         break;
@@ -123,6 +112,7 @@ public class Juego extends Fragment {
                     default:
 
                         //Agrega método que dibuje nada
+                        Log.d("myTag","Nada");
                         mRadioButtonChoice = NINGUNO;
                         mListener.onRadioButtonChoice(NINGUNO);
                         break;
