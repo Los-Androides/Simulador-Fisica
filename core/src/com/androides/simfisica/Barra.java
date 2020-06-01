@@ -12,8 +12,10 @@ public class Barra {
     Texture barraImg;
     Texture reglaImg;
     Texture baseImg;
+    Texture marcasImg;
 
     boolean showRegla;
+    boolean showMarcas;
 
     double width;
     double height;
@@ -22,10 +24,17 @@ public class Barra {
 
     Bloque bloques[];
 
+    public interface SimJuegoInterface {
+        public void mostrarRegla(boolean val);
+        public void mostrarMarca(boolean val);
+        public void mostrarFuerzas(boolean val);
+    }
+
     public Barra(double w, double h, int x, int y) {
         this.barraImg = new Texture("tabla.png");
         this.reglaImg = new Texture("regla.png");
         this.baseImg = new Texture("base.png");
+        this.marcasImg = new Texture("marca.png");
 
         this.bloques = new Bloque[16];
 
@@ -34,6 +43,7 @@ public class Barra {
         }
 
         this.showRegla = false;
+        this.showMarcas = false;
 
         this.width = w;
         this.height = h;
@@ -57,6 +67,7 @@ public class Barra {
     public double getRotation() { return rotation; }
 
     public boolean isShowRegla() { return showRegla;}
+    public boolean isShowMarcas () { return showMarcas;}
 
     // setters
 
@@ -71,6 +82,7 @@ public class Barra {
     public void setRotation(double val) { rotation = val; }
 
     public void setShowRegla(boolean val) { showRegla = val; }
+    public void setShowMarcas(boolean val) { showMarcas = val; }
 
     // methods
 
@@ -104,6 +116,11 @@ public class Barra {
         return false;
     }
 
+    private void dibujarMarcas(SpriteBatch batch) {
+        batch.draw(marcasImg, posX, posY);
+
+    }
+
     public void render(SpriteBatch batch) {
 
         int originX = ((int) width / 2);
@@ -117,18 +134,33 @@ public class Barra {
 
         batch.draw(baseImg, (int) (posX + originX - (widthBase / 2)), (int) (posY + originY - (widthBase * .9f)), (int) (widthBase ), (int) (heightBase));
 
-        batch.draw(barraImg,
-                posX, posY,
-                originX, originY,
-                (int) width, (int) height,
-                scaleX, scaleY,
-                (float) rotation,
-                0, 0,
-                barraImg.getWidth(), barraImg.getHeight(),
-                false, false);
-
         if (showRegla) {
 
+            double ratio = 4.5f;
+            double changeInHeight = (height * (ratio - 1));
+
+            batch.draw(reglaImg,
+                    posX, (int) (posY - changeInHeight),
+                    originX, (int) (originY + changeInHeight),
+                    (int) width, (int) (height * ratio),
+                    scaleX, scaleY,
+                    (float) rotation,
+                    0, 0,
+                    reglaImg.getWidth(), reglaImg.getHeight(),
+                    false, false);
+        } else {
+            if (showMarcas) {
+                dibujarMarcas(batch);
+            }
+            batch.draw(barraImg,
+                    posX, posY,
+                    originX, originY,
+                    (int) width, (int) height,
+                    scaleX, scaleY,
+                    (float) rotation,
+                    0, 0,
+                    barraImg.getWidth(), barraImg.getHeight(),
+                    false, false);
         }
 
         for (int i = 0;  i < bloques.length; i++) {
@@ -136,14 +168,13 @@ public class Barra {
                 bloques[i].render(batch, this, i);
             }
         }
-
-//        rotation += 100 * Gdx.graphics.getDeltaTime();
     }
 
     public void dispose() {
         barraImg.dispose();
         reglaImg.dispose();
         baseImg.dispose();
+        marcasImg.dispose();
         for (int i = 0;  i < bloques.length; i++) {
             if (bloques[i] != null) {
                 bloques[i].dispose();

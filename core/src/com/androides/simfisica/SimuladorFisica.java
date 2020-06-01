@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class SimuladorFisica extends  ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
 	Barra barra;
+//	ShapeRenderer sr;
 
 	int screenWidth, screenHeight;
 
@@ -28,6 +30,7 @@ public class SimuladorFisica extends  ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
+//		sr = new ShapeRenderer();
 
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
@@ -73,6 +76,7 @@ public class SimuladorFisica extends  ApplicationAdapter {
 	@Override
 	public void render () {
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		batch.begin();
 
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
@@ -126,6 +130,7 @@ public class SimuladorFisica extends  ApplicationAdapter {
 		}
 
 		batch.end();
+
 	}
 
 	@Override
