@@ -20,7 +20,9 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-public class AndroidLauncher extends FragmentActivity implements MenuFragment.OnFragmentInteractionListener,Juego.OnFragmentInteractionListener {
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+
+public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks, MenuFragment.OnFragmentInteractionListener,Juego.OnFragmentInteractionListener {
 
     //La opción 3 significa Ninguno en el menú "mostrar" de Juego
     private int mRadioButtonChoice = 3;
@@ -52,11 +54,17 @@ public class AndroidLauncher extends FragmentActivity implements MenuFragment.On
         }
     }
     public void displayJuego(){
+
+        VistaJuego vistaJuego = new VistaJuego();
+        getSupportFragmentManager().beginTransaction().add(R.id.game_container, vistaJuego).addToBackStack(null).commit();
+
         Juego juegoFragment = Juego.newInstance(mRadioButtonChoice);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container,juegoFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
+
 
     }
 
@@ -69,10 +77,13 @@ public class AndroidLauncher extends FragmentActivity implements MenuFragment.On
 
     }
 
-
-
     @Override
     public void onRadioButtonChoice(int choice) {
+
+    }
+
+    @Override
+    public void exit() {
 
     }
 }
