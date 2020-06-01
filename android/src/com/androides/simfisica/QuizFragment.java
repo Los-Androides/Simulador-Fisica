@@ -46,7 +46,9 @@ public class QuizFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+
         final View rootView = inflater.inflate(R.layout.activity_quiz,container,false);
+
         textView = rootView.findViewById(R.id.Pregunta);
         respuesta = rootView.findViewById(R.id.respuesta);
         mostrar = rootView.findViewById(R.id.button4);

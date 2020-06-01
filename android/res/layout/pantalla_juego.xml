@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content_fragmentJuego"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#4000BCD4"
-    tools:context=".AndroidLauncher">
+    android:screenOrientation="landscape"
+    tools:context=".Juego">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -53,7 +50,7 @@
                 android:id="@+id/fuerzaObj"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
-                android:text="Fuerzas de los objetos"
+                android:text="@string/fuerza"
                 android:textColor="#000000"
                 android:textSize="13sp"
                 android:onClick="onCheckboxClicked"
@@ -64,7 +61,7 @@
                 android:id="@+id/nivel"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:text="Nivel"
+                android:text="@string/nivelMenu"
                 android:textColor="#000000"
                 android:textSize="13sp"
                 android:onClick="onCheckboxClicked"
@@ -93,7 +90,7 @@
                     android:id="@+id/radioBtn_regla"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
-                    android:text="Regla"
+                    android:text="@string/regla"
                     android:textColor="#000000"
                     android:textSize="13sp"
                     tools:layout_editor_absoluteX="62dp"
@@ -103,7 +100,7 @@
                     android:id="@+id/radioBtn_marcas"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
-                    android:text="Marcas"
+                    android:text="@string/marcas"
                     android:textColor="#000000"
                     android:textSize="13sp"
                     tools:layout_editor_absoluteX="62dp"
@@ -113,7 +110,7 @@
                     android:id="@+id/radioBtn_ninguna"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
-                    android:text="Ninguna"
+                    android:text="@string/ninguno"
                     android:textColor="#000000"
                     android:textSize="13sp"
                     tools:layout_editor_absoluteX="62dp"
@@ -125,7 +122,5 @@
         </LinearLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

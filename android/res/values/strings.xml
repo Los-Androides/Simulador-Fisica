@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SImulador-Fisica</string>
-    <string name="question">A que lado se inclina la barra o esta balanceada?</string>
-    <string name="eq">Equilibrame!</string>
+    <string name="app_name">Simulador-Fisica</string>
+    <string name="question">¿A qué lado se inclina la barra o está balanceada?</string>
+    <string name="eq">¡Equilíbrame!</string>
     <string name="revisar">Revisar</string>
     <string name="nivel">Nivel: 1</string>
     <string name="reto"></string>
-    <string name="puntuacion">Puntuacion:</string>
+    <string name="puntuacion">Puntuación:</string>
     <string name="reset">Empezar de nuevo</string>
     <string name = "siguiente">Siguiente</string>
     <string name = "mostrar">Mostrar Respuesta</string>
 
+    <string name ="examen">Examen</string>
+    <string name ="juego">Juego</string>
+    <string name ="fuerza">Fuerza de los objetos</string>
+    <string name ="nivelMenu">Nivel</string>
+    <string name ="regla">Regla</string>
+    <string name ="marcas">Marcas</string>
+    <string name ="ninguno">Ninguno</string>
     <!-- Text for the exception message in FragmentCommunicate. -->
     <string name="exception_message">must implement OnFragmentInteractionListener</string>
 

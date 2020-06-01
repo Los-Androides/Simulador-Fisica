@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
@@ -19,55 +18,62 @@ public class Juego extends Fragment {
 
     OnFragmentInteractionListener mListener;
     private static final String OPCION_MOSTRAR = "opcion_mostrar";
-    private static final int REGLA = 0;
-    private static final int MARCA = 1 ;
-    private static final int NINGUNO = 2;
+    private static final int REGLA = 1;
+    private static final int MARCA = 2 ;
+    private static final int NINGUNO = 3;
     public int mRadioButtonChoice = NINGUNO;
 
     public Juego() {
-        // Required empty public constructor
+
     }
 
-    public static Juego newInstance() {
+    public static Juego newInstance(int choice){
+
         Juego fragment = new Juego();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+        Bundle arguments = new Bundle();
+        arguments.putInt(OPCION_MOSTRAR,choice);
+        fragment.setArguments(arguments);
+
         return fragment;
     }
 
+
     interface OnFragmentInteractionListener{
         void onRadioButtonChoice(int choice);
+        void onButtonClick(String option);
     }
 
-    public void onCheckboxClicked(View view) {
+
+
+ //   public void onCheckboxClicked(View view) {
         // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
+  //      boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.valorMasa:
-                if (checked){
+    //    switch(view.getId()) {
+      //      case R.id.valorMasa:
+        //        if (checked){
                     // Muestra la masa de los objetos
-                } else{
+          //      } else{
                    //No muestres la masa de los objetos
-                }
-                break;
-            case R.id.fuerzaObj:
-                if (checked){
+            //    }
+              //  break;
+           // case R.id.fuerzaObj:
+            //    if (checked){
                     // Muestra la fuerza de los objetos
-                } else{
+             //   } else{
                     //No muestres la fuerza de los objetos
-                }
-                break;
-            case R.id.nivel:
-                if (checked){
+              //  }
+               // break;
+        //    case R.id.nivel:
+          //      if (checked){
                     // Muestra el nivel
-                } else{
+            //    } else{
                     //No muestres el nivel
-                }
-                break;
-        }
-    }
+              //  }
+               // break;
+       // }
+   // }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,11 +84,12 @@ public class Juego extends Fragment {
 
         final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
 
+
         //Checas si hay una checkbox seleccionada
-        onCheckboxClicked(rootView);
+        //onCheckboxClicked(rootView);
 
         //Checa si hay un RadioButton seleccionado
-        if(getArguments().containsKey(OPCION_MOSTRAR)){
+       if(getArguments().containsKey(OPCION_MOSTRAR)){
             mRadioButtonChoice=getArguments().getInt(OPCION_MOSTRAR);
 
             if(mRadioButtonChoice != NINGUNO){
@@ -101,19 +108,21 @@ public class Juego extends Fragment {
                 switch (index){
 
                     case REGLA:
-                        Log.d("myTag", "regluki");
+                        //Agrega método que dibuje la regla
                         mRadioButtonChoice = REGLA;
                         mListener.onRadioButtonChoice(REGLA);
                         break;
 
                     case MARCA:
                         //Agrega método que dibuje la MARCA
+
                         mRadioButtonChoice = MARCA;
                         mListener.onRadioButtonChoice(MARCA);
                         break;
 
                     default:
 
+                        //Agrega método que dibuje nada
                         mRadioButtonChoice = NINGUNO;
                         mListener.onRadioButtonChoice(NINGUNO);
                         break;

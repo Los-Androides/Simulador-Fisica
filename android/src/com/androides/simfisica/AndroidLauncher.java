@@ -21,12 +21,16 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 public class AndroidLauncher extends FragmentActivity implements MenuFragment.OnFragmentInteractionListener,Juego.OnFragmentInteractionListener {
-	@RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+
+    //La opción 3 significa Ninguno en el menú "mostrar" de Juego
+    private int mRadioButtonChoice = 3;
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.pantalla_principal);
+        setContentView(R.layout.activity_main);
         displayMenuFragment();
 
     }
@@ -40,9 +44,20 @@ public class AndroidLauncher extends FragmentActivity implements MenuFragment.On
     @Override
     public void onButtonClick(String option) {
         Toast.makeText(this, "choice is" + option,Toast.LENGTH_SHORT).show();
+        if (option == "Juego"){
+            displayJuego();
+        }
         if (option == "Quiz"){
             displayQuizFragment();
         }
+    }
+    public void displayJuego(){
+        Juego juegoFragment = Juego.newInstance(mRadioButtonChoice);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container,juegoFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
     }
 
     public void displayQuizFragment(){
@@ -53,6 +68,8 @@ public class AndroidLauncher extends FragmentActivity implements MenuFragment.On
         transaction.commit();
 
     }
+
+
 
     @Override
     public void onRadioButtonChoice(int choice) {
