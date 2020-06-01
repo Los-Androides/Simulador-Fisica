@@ -10,7 +10,7 @@ public class Preguntas {
     private String Imagenes[];
     public Preguntas(){
       Preguntas = new String[]{"Distancia que tiene que ir la roca para balancear la regla?","Cual es la masa?","Se centrara la barra o se inclinara a la izquierda o derecha?"};
-      Respuestas = new String[]{"1.5","20",};
+      Respuestas = new String[]{"1.5","20"};
       Imagenes = new String[]{"Pregunta.png"};
     };
 
@@ -25,5 +25,7 @@ public class Preguntas {
         Bitmap bm = BitmapFactory.decodeFile(Imagenes[a]);
         return bm;
     }
+
+    public int getSize(){return Preguntas.length;}
 
 }
