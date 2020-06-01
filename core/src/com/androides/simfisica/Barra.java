@@ -43,7 +43,7 @@ public class Barra {
         }
 
         this.showRegla = false;
-        this.showMarcas = false;
+        this.showMarcas = true;//false;
 
         this.width = w;
         this.height = h;
@@ -117,7 +117,88 @@ public class Barra {
     }
 
     private void dibujarMarcas(SpriteBatch batch) {
-        batch.draw(marcasImg, posX, posY);
+        double wb = (width / 2) * .9f;
+        double w = wb / 8;
+
+        double marcaWidth = Gdx.graphics.getWidth() * .025f;
+        double marcaHeight = Gdx.graphics.getHeight() * .1f;
+
+        double originX = (width / 2);
+        double originY = (height / 2);
+
+        int x;
+        int y = (int) (posY - marcaHeight);
+
+        double val = 0;
+        double half = (marcaWidth / 2);
+        double extra;
+
+        for (int i = 0; i < 16; i++) {
+            originX = (width / 2);
+            if (i < 8) {
+                val = ((i + 1) * (int)(w));
+                extra = 0;
+
+            } else {
+                int posicion = (16 - i);
+                val = -(posicion * w);
+//                half *= -1;
+                extra = width;
+            }
+
+            x = (int) (posX + val - half + extra);
+//            x = (int) (posX + half + val + extra);
+
+            originX -= x - posX;
+
+            batch.draw(marcasImg,
+                    x, y,
+                    (int) originX, (int) originY,
+                    (int) marcaWidth, (int) (marcaHeight),
+                    1, 1,
+                    (float) rotation,
+                    0, 0,
+                    marcasImg.getWidth(), marcasImg.getHeight(),
+                    false, false);
+        }
+
+//        double percentage = .75f;
+//        double val = 0;
+//
+//        double offset = 0;
+//        double offHelp = 0;
+//        offHelp = (1f - percentage) / 2;
+//        offset = ((offHelp * width));
+//
+//        double extra;
+//        double half = (width / 2);
+//        double w = this.width * percentage;
+//
+//        if (pos < 8) {
+//            val = ((pos) * (int)(width));
+//            extra = 0;
+//
+//        } else {
+//            int posicion = (16 - pos);
+//            val = -(posicion * width);
+//            half *= -1;
+//            extra = barra.getWidth();
+//        }
+//
+//        x = (int) (barra.getPosX() + half + val + offset + extra);
+//
+//        originX -= x - barra.getPosX();
+//
+//        batch.draw(bloqueImg,
+//                x, y,
+//                (int) originX, (int) originY,
+//                (int) w, (int) (height * tipo),
+//                1, 1,
+//                (float) barra.rotation,
+//                0, 0,
+//                bloqueImg.getWidth(), bloqueImg.getHeight(),
+//                false, false);
+
 
     }
 
