@@ -28,9 +28,9 @@ public class MenuFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
-        final Button buttonA = rootView.findViewById(R.id.Juego);
-        final Button buttonB = rootView.findViewById(R.id.Quiz);
+        final View rootView = inflater.inflate(R.layout.fragment_menu1, container, false);
+        final Button buttonA = rootView.findViewById(R.id.btn_juego);
+        final Button buttonB = rootView.findViewById(R.id.btn_examen);
 
         buttonA.setOnClickListener(new View.OnClickListener() {
             @Override
