@@ -1,29 +1,27 @@
 package com.androides.simfisica;
 
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 public class Preguntas {
     private String Preguntas[];
-    private String Respuestas[];
-    private String Imagenes[];
+    private int Respuestas[];
     public Preguntas(){
-      Preguntas = new String[]{"Distancia que tiene que ir la roca para balancear la regla?","Cual es la masa?","Se centrara la barra o se inclinara a la izquierda o derecha?"};
-      Respuestas = new String[]{"1.5","20"};
-      Imagenes = new String[]{"Pregunta.png"};
+      Preguntas = new String[]{"Cual es la masa de la maceta?",
+              "Que pasara al remover los soportes? Ingresa 1 para centrado, 2 para inclinacion izquierda, 3 para derecha",
+              "Que pasara al remover los soportes? Ingresa 1 para centrado, 2 para inclinacion izquierda, 3 para derecha",
+              "Cual es la masa de la llanta?",
+              "Que pasara al remover los soportes? Ingresa 1 para centrado, 2 para inclinacion izquierda, 3 para derecha",
+              "Cual es la masa de la television?",
+              "Que pasara al remover los soportes? Ingresa 1 para centrado, 2 para inclinacion izquierda, 3 para derecha"
+      };
+      Respuestas = new int[]{5,2,2,15,3,10,2};
     };
 
     public String getPregunta(int a){
         return Preguntas[a];
     }
 
-    public String getRespuesta(int a){
+    public double getRespuesta(int a){
         return Respuestas[a];
-    }
-    public Bitmap getImage(int a){
-        Bitmap bm = BitmapFactory.decodeFile(Imagenes[a]);
-        return bm;
     }
 
     public int getSize(){return Preguntas.length;}

@@ -34,6 +34,7 @@ public class QuizFragment extends Fragment {
     private TextView reto;
     private int numPreguntas;
     private EditText respuesta;
+    private ImageView imagen;
 
 
 
@@ -57,8 +58,8 @@ public class QuizFragment extends Fragment {
         reto.setText("Reto " + Integer.toString(numPregunta + 1) + " de " + Integer.toString(numPreguntas));
         puntuacion = rootView.findViewById(R.id.Puntuacion);
         puntuacion.setText("Puntuacion: " + Integer.toString(score));
-        ImageView Imagen = rootView.findViewById(R.id.imageView);
-        Imagen.setImageBitmap(Preguntas.getImage(numPregunta));
+        imagen = rootView.findViewById(R.id.imageView);
+        imagen.setImageResource(R.drawable.pregunta1);
         mostrar.setEnabled(false);
         mostrar.setVisibility(rootView.INVISIBLE);
         next = rootView.findViewById(R.id.Next);
@@ -76,11 +77,16 @@ public class QuizFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String answer = respuesta.getText().toString().trim();
-                if(answer == Preguntas.getRespuesta(numPregunta).trim()){
+                if(Integer.parseInt(answer) == Preguntas.getRespuesta(numPregunta)){
                     Toast.makeText(rootView.getContext(), "CORRECTO!",Toast.LENGTH_SHORT).show();
                     score = score + 2;
+                    auxImage();
                     puntuacion.setText("Puntuacion: " + Integer.toString(score));
-                    next.setEnabled(true);
+                    if(numPregunta < numPreguntas-1){
+                        next.setEnabled(true);
+                    }else{
+                        next.setEnabled(false);
+                    }
                 }else{
                     Toast.makeText(rootView.getContext(), "Intentalo de nuevo!",Toast.LENGTH_SHORT).show();
                     tries++;
@@ -94,7 +100,12 @@ public class QuizFragment extends Fragment {
                                         Preguntas.getRespuesta(numPregunta),Toast.LENGTH_SHORT).show();
                                 score--;
                                 puntuacion.setText("Puntuacion: " + Integer.toString(score));
-                                next.setEnabled(true);
+                                if(numPregunta < numPreguntas-1){
+                                    next.setEnabled(true);
+                                }else{
+                                    next.setEnabled(false);
+                                }
+
                             }
                         });
                     }
@@ -105,9 +116,6 @@ public class QuizFragment extends Fragment {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                numPregunta++;
-                textView.setText(Preguntas.getPregunta(numPregunta));
-                puntuacion.setText("Puntuacion: " + Integer.toString(score));
                 sigPregunta(rootView);
             }
         });
@@ -115,22 +123,69 @@ public class QuizFragment extends Fragment {
         return rootView;
     }
 
+    private void cambiaImagen(){
+        switch (numPregunta){
+            case 0:
+                imagen.setImageResource(R.drawable.pregunta1);
+                break;
+            case 1:
+                imagen.setImageResource(R.drawable.pregunta2);
+                break;
+            case 2:
+                imagen.setImageResource(R.drawable.pregunta3);
+                break;
+            case 3:
+                imagen.setImageResource(R.drawable.pregunta4);
+                break;
+            case 4:
+                imagen.setImageResource(R.drawable.pregunta5);
+                break;
+            case 5:
+                imagen.setImageResource(R.drawable.pregunta6);
+                break;
+            case 6:
+                imagen.setImageResource(R.drawable.pregunta7);
+                break;
+            default:
+                break;
+        }
+    }
 
-
+    private void auxImage(){
+        switch (numPregunta){
+            case 1:
+                imagen.setImageResource(R.drawable.auxpregunta2);
+                break;
+            case 2:
+                imagen.setImageResource(R.drawable.auxpregunta3);
+                break;
+            case 4:
+                imagen.setImageResource(R.drawable.auxpregunta5);
+                break;
+            case 6:
+                imagen.setImageResource(R.drawable.auxpregunta7);
+                break;
+            default:
+                break;
+        }
+    }
 
     private void sigPregunta(View rootView){
         numPregunta++;
         textView.setText(Preguntas.getPregunta(numPregunta));
+        puntuacion.setText("Puntuacion: " + Integer.toString(score));
         reto.setText("Reto " + Integer.toString(numPregunta + 1) + " de " + Integer.toString(numPreguntas));
         next.setEnabled(false);
         mostrar.setEnabled(false);
         mostrar.setVisibility(rootView.INVISIBLE);
+        cambiaImagen();
         respuesta.setText("");
     }
 
     private void resetQuiz(View rootView){
         numPregunta = 0;
         score = 0;
+        cambiaImagen();
         textView.setText(Preguntas.getPregunta(numPregunta));
         puntuacion.setText("Puntuacion: " + Integer.toString(score));
         next.setEnabled(false);

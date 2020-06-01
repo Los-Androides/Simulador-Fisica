@@ -11,6 +11,8 @@
     <string name="reset">Empezar de nuevo</string>
     <string name = "siguiente">Siguiente</string>
     <string name = "mostrar">Mostrar Respuesta</string>
+    <string name = "formula">Torca = peso * distancia</string>
+
 
     <string name ="examen">Examen</string>
     <string name ="juego">Juego</string>
