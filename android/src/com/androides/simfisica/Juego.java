@@ -38,7 +38,7 @@ public class Juego extends Fragment {
 
         return fragment;
     }
-    
+
 
     interface OnFragmentInteractionListener{
         void onRadioButtonChoice(int choice);
