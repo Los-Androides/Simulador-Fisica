@@ -49,6 +49,10 @@ public class SimuladorFisica extends ApplicationAdapter {
 		barra.setShowMarcas(false);
 	}
 
+	public void mostarNivel(boolean val) {
+	    barra.setShowNivel(val);
+    }
+
 	public double getBarraTorqueIzquierdo() {
 		return barra.calcularTorqueIzquierdo();
 	}
