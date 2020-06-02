@@ -64,7 +64,6 @@ public class Juego extends Fragment {
     TextView r2m,r15m,r1m,r05m;
     CheckBox fuerza,masa,nivel;
     TextView fi,fd;
-
     Button limpia;
 
 
@@ -78,6 +77,7 @@ public class Juego extends Fragment {
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
 
+        limpia = rootView.findViewById(R.id.reset);
         fi = rootView.findViewById(R.id.fi);
         fd = rootView.findViewById(R.id.fd);
         //Checkbox
@@ -119,8 +119,8 @@ public class Juego extends Fragment {
             public void onClick(View v) {
 
                 if(fuerza.isChecked()){
-                    fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
-                    fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
+                        fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
+                        fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
                 }
                 else{
 
@@ -185,6 +185,9 @@ public class Juego extends Fragment {
         });
 
         return rootView;
+    }
+    public void reset(View view){
+        juego.borrarBloques();
     }
 
     View.OnLongClickListener longClickListener = new View.OnLongClickListener(){
