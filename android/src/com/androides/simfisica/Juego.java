@@ -24,7 +24,7 @@ import androidx.fragment.app.Fragment;
 
 public class Juego extends Fragment {
 
-    OnFragmentInteractionListener mListener;
+    JuegoListener mListener;
     private static final String OPCION_MOSTRAR = "opcion_mostrar";
     private static final int REGLA = 1;
     private static final int MARCA = 2;
@@ -47,9 +47,8 @@ public class Juego extends Fragment {
     }
 
 
-    interface OnFragmentInteractionListener {
-        void onRadioButtonChoice(int choice);
-
+    interface JuegoListener{
+        void show(int choice);
         void onButtonClick(String option);
     }
 
@@ -187,7 +186,7 @@ public class Juego extends Fragment {
                         //Agrega método que dibuje la MARCA
                         Log.d("myTag", "Marca");
                         mRadioButtonChoice = MARCA;
-                        mListener.onRadioButtonChoice(MARCA);
+                        mListener.show(MARCA);
                         barra.setVisibility(View.VISIBLE);
                         regla.setVisibility(View.GONE);
                         break;
@@ -196,7 +195,7 @@ public class Juego extends Fragment {
                         //Agrega método que dibuje la regla
 
                         mRadioButtonChoice = REGLA;
-                        mListener.onRadioButtonChoice(REGLA);
+                        mListener.show(REGLA);
                         regla.setVisibility(View.VISIBLE);
                         barra.setVisibility(View.GONE);
                         break;
@@ -245,18 +244,15 @@ public class Juego extends Fragment {
         }
     };
 
+    @Override
+    public void onAttach(Context context) {
 
+        super.onAttach(context);
+        if (context instanceof JuegoListener) {
+            mListener = (JuegoListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + getResources().getString(R.string.exception_message));
 
-
-        @Override
-        public void onAttach(Context context) {
-
-            super.onAttach(context);
-            if (context instanceof OnFragmentInteractionListener) {
-                mListener = (OnFragmentInteractionListener) context;
-            } else {
-                throw new ClassCastException(context.toString() + getResources().getString(R.string.exception_message));
-            }
         }
-
+    }
 }

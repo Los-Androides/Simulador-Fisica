@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-public class SimuladorFisica extends  ApplicationAdapter {
+public class SimuladorFisica extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture background;
 	Barra barra;
@@ -26,28 +26,35 @@ public class SimuladorFisica extends  ApplicationAdapter {
 	boolean calcularTorque;
 	boolean aceleracionNegativa;
 
-	public interface InterfazJuego {
-		void mostrarRegla();
-		void mostrarMarcas(int score);
-		void mostrarNiguna();
-
-		void agregarBloque(int pos);
-		void quitarBloque(int pos);
-	}
-
-	private InterfazJuego context;
-
-//	public SimuladorFisica(InterfazJuego context) {
-//		this.context = context;
-//	}
-
 	private Bloque crearBloque(int peso, int tipo) {
 		double wb = (barra.getWidth() / 2) * .9f;
 
 		double w = wb / 8;
 		double h = screenHeight * .03f;
 		return new Bloque(w, h, peso, tipo);
+	}
 
+	public void mostrarRegla() {
+		barra.setShowRegla(true);
+		barra.setShowMarcas(false);
+	}
+
+	public void mostrarMarcas() {
+		barra.setShowMarcas(true);
+		barra.setShowRegla(false);
+	}
+
+	public void mostrarNiguno() {
+		barra.setShowRegla(true);
+		barra.setShowMarcas(false);
+	}
+
+	public double getBarraTorqueIzquierdo() {
+		return barra.calcularTorqueIzquierdo();
+	}
+
+	public double getBarraTorqueDerecho() {
+		return barra.calcularTorqueDerecho();
 	}
 
 	@Override
