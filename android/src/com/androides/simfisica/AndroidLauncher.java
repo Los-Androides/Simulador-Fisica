@@ -83,22 +83,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    @Override
-    public double calculaTorque(int choice){
-        double val;
-        switch (choice){
-            case 1:
-                val = libgdxFragment.getJuego().getBarraTorqueIzquierdo();
-                break;
-            case 2:
-                val = libgdxFragment.getJuego().getBarraTorqueDerecho();
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + choice);
-        }
-        return val;
-    }
-
 
 //    @Override
 //    public void show(int choice) {
