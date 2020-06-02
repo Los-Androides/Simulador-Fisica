@@ -58,24 +58,24 @@ public class Bloque {
 
     // getters
 
-    public Texture getBloqueImg() { return bloqueImg; }
-    public double getWidth()      { return width; }
-    public double getHeight()     { return height * tipo; }
-    public double getPeso()       { return peso * tipo; }
-    public int getTipo()          { return tipo; }
+    public Texture getBloqueImg() { return this.bloqueImg; }
+    public double getWidth()      { return this.width; }
+    public double getHeight()     { return this.height * this.tipo; }
+    public double getPeso()       { return this.peso * this.tipo; }
+    public int getTipo()          { return this.tipo; }
 
     // setters
 
-    public void setBloqueImg (String path) { bloqueImg = new Texture(path); }
-    public void setWidth     (double val)  { width = val; }
-    public void setHeight    (double val)  { height = val; }
-    public void setMasa      (double val)  { peso = val; }
+    public void setBloqueImg (String path) { this.bloqueImg = new Texture(path); }
+    public void setWidth     (double val)  { this.width = val; }
+    public void setHeight    (double val)  { this.height = val; }
+    public void setMasa      (double val)  { this.peso = val; }
 
     // methods
 
     public boolean checarSiEstaSeleccionado(int pointerX, int pointerY) {
 
-        if (posX < pointerX && pointerX < (posX + width) && posY < pointerY && pointerY < (posY + height * tipo)) {
+        if (this.posX < pointerX && pointerX < (this.posX + this.width) && this.posY < pointerY && pointerY < (this.posY + this.height * this.tipo)) {
             return true;
         }
         return false;
@@ -83,8 +83,8 @@ public class Bloque {
 
     public void render(SpriteBatch batch, Barra barra, int pos) {
 
-        if (estaEnBarra) {
-            posY = barra.getPosY() + (int) barra.getHeight();
+        if (this.estaEnBarra) {
+            this.posY = barra.getPosY() + (int) barra.getHeight();
 
             double originX = (barra.getWidth() / 2);
             double originY = -(barra.getHeight() / 2);
@@ -95,10 +95,10 @@ public class Bloque {
             double offset = 0;
             double offHelp = 0;
             offHelp = (1f - percentage) / 2;
-            offset = ((offHelp * width));
+            offset = ((offHelp * this.width));
 
             double extra;
-            double half = (width / 2);
+            double half = (this.width / 2);
             double w = this.width * percentage;
 
             if (pos < 8) {
@@ -112,26 +112,26 @@ public class Bloque {
                 extra = barra.getWidth();
             }
 
-            posX = (int) (barra.getPosX() + half + val + offset + extra);
+            this.posX = (int) (barra.getPosX() + half + val + offset + extra);
 
-            originX -= posY - barra.getPosX();
+            originX -= this.posX - barra.getPosX();
 
             batch.draw(bloqueImg,
-                    posX, posY,
+                    this.posX, this.posY,
                     (int) originX, (int) originY,
-                    (int) w, (int) (height * tipo),
+                    (int) w, (int) (this.height * this.tipo),
                     1, 1,
                     (float) barra.getRotation(),
                     0, 0,
-                    bloqueImg.getWidth(), bloqueImg.getHeight(),
+                    this.bloqueImg.getWidth(), this.bloqueImg.getHeight(),
                     false, false);
         } else {
-            batch.draw(bloqueImg, posX, posY, (int) width, (int) (height * tipo));
+            batch.draw(this.bloqueImg, this.posX, this.posY, (int) this.width, (int) (this.height * this.tipo));
         }
 
     }
 
     public void dispose() {
-        bloqueImg.dispose();
+        this.bloqueImg.dispose();
     }
 }

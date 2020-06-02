@@ -33,6 +33,8 @@ public class SimuladorFisica extends ApplicationAdapter {
 	private int tipoBloqueDrag;
 	private int bloqueX;
 	private int bloqueY;
+	private double widthBloque;
+	private double heightBloque;
 
 	private Bloque crearBloque(int tipo, int x, int y, boolean enBarra) {
 		double wb = (barra.getWidth() / 2) * .9f;
@@ -74,21 +76,26 @@ public class SimuladorFisica extends ApplicationAdapter {
 	}
 
 	private void checarSiSeAgregaBloque() {
+		double espacio = barra.getWidth() / 16;
+
+		for (int i = 0; i < 16; i++) {
+			if (barra.getPosX() + (espacio * i) <= bloqueX && bloqueX < barra.getPosX() + (espacio * (i + 1))) {
+				agregarBloqueBarra(i, tipoBloqueDrag);
+			}
+		}
 
 	}
 
 	public void dibujarBloque() {
 		bloqueX = Gdx.input.getX();
 		bloqueY  = screenHeight - Gdx.input.getY();
-		System.out.println(tipoBloqueDrag);
 		int pos = tipoBloqueDrag - 1;
-		double w = bloques[pos].getWidth();
-		double h = bloques[pos].getHeight();
+		double w = widthBloque;//bloques[pos].getWidth();
+		double h = heightBloque;//bloques[pos].getHeight();
 		batch.draw(bloquesImg[pos], (int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)), (int) (w), (int) (h));
 	}
 
 	private void dragAndDrop() {
-		System.out.println(Gdx.input.isTouched());
 
 		if (bloqueDrag) {
 			if (Gdx.input.isTouched()) {
@@ -105,9 +112,10 @@ public class SimuladorFisica extends ApplicationAdapter {
 			int y  = screenHeight - Gdx.input.getY();
 			for (int i = 0; i < 4; i++) {
 				if (bloques[i].checarSiEstaSeleccionado(x, y)) {
-					System.out.println("aaaaaaaaaaaaaaaaaaaaaa");
 					bloqueDrag = true;
 					tipoBloqueDrag = bloques[i].getTipo();
+					widthBloque = bloques[i].getWidth();
+					heightBloque = bloques[i].getHeight();
 					dibujarBloque();
 				}
 			}
@@ -126,7 +134,8 @@ public class SimuladorFisica extends ApplicationAdapter {
 		System.out.println("diff " + diff);
 		System.out.println("rot " + rotacion);
 
-		aceleracion = Math.pow(diff, 0.9);
+		aceleracion = Math.pow(Math.abs(diff), 0.9);
+		aceleracion *= (diff > 0) ? 1 : -1;
 
 		calcularTorque = false;
 		aceleracionNegativa = (aceleracion > 0) ? false : true;
@@ -159,8 +168,6 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 		for (int i = 0; i < 4; i++) {
 			bloques[i] = crearBloque((i + 1), 250 * (i + 1), 100, false);
-//			bloques[i].setWidth(bloques[i].getWidth() * 2f);
-//			bloques[i].setHeight(bloques[i].getHeight() * 2f);
 		}
 
         torqueDerecho = 0;
@@ -176,18 +183,18 @@ public class SimuladorFisica extends ApplicationAdapter {
         tipoBloqueDrag = 0;
         bloqueX = 0;
 		bloqueY = 0;
-
+		widthBloque = 0;
+		heightBloque = 0;
 	}
 
 	@Override
 	public void render () {
 //		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
 		batch.begin();
 
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
-
-		barra.render(batch);
 
 		dragAndDrop();
 
@@ -223,6 +230,8 @@ public class SimuladorFisica extends ApplicationAdapter {
 			barra.setRotation(rotacion);
 
 		}
+
+		barra.render(batch);
 
         for (int i = 0; i < 4; i++) {
         	bloques[i].render(batch, null,0);

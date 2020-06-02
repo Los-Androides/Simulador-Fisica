@@ -110,40 +110,40 @@ public class Barra {
     }
 
     public boolean addBloque(Bloque bloque, int pos) {
-        if (bloques[pos] == null) {
-            bloques[pos] = bloque;
+        if (this.bloques[pos] == null) {
+            this.bloques[pos] = bloque;
             return true;
         }
         return false;
     }
 
     public boolean quitarBloque(int pos) {
-        if (bloques[pos] != null) {
-            bloques[pos] = null;
+        if (this.bloques[pos] != null) {
+            this.bloques[pos] = null;
             return true;
         }
         return false;
     }
 
     private void dibujarMarcas(SpriteBatch batch) {
-        double wb = (width / 2) * .9f;
+        double wb = (this.width / 2) * .9f;
         double w = wb / 8;
 
         double marcaWidth = Gdx.graphics.getWidth() * .025f;
         double marcaHeight = Gdx.graphics.getHeight() * .1f;
 
         double originX = (width / 2);
-        double originY = (height / 2);
+        double originY = (this.height / 2);
 
         int x;
-        int y = (int) (posY - marcaHeight);
+        int y = (int) (this.posY - marcaHeight);
 
         double val = 0;
         double half = (marcaWidth / 2);
         double extra;
 
         for (int i = 0; i < 16; i++) {
-            originX = (width / 2);
+            originX = (this.width / 2);
             if (i < 8) {
                 val = ((i + 1) * (int)(w));
                 extra = 0;
@@ -152,22 +152,22 @@ public class Barra {
                 int posicion = (16 - i);
                 val = -(posicion * w);
 //                half *= -1;
-                extra = width;
+                extra = this.width;
             }
 
-            x = (int) (posX + val - half + extra);
+            x = (int) (this.posX + val - half + extra);
 //            x = (int) (posX + half + val + extra);
 
-            originX -= x - posX;
+            originX -= x - this.posX;
 
-            batch.draw(marcasImg,
+            batch.draw(this.marcasImg,
                     x, y,
                     (int) originX, (int) originY,
                     (int) marcaWidth, (int) (marcaHeight),
                     1, 1,
-                    (float) rotation,
+                    (float) this.rotation,
                     0, 0,
-                    marcasImg.getWidth(), marcasImg.getHeight(),
+                    this.marcasImg.getWidth(), this.marcasImg.getHeight(),
                     false, false);
         }
 
@@ -207,14 +207,12 @@ public class Barra {
 //                0, 0,
 //                bloqueImg.getWidth(), bloqueImg.getHeight(),
 //                false, false);
-
-
     }
 
     public void render(SpriteBatch batch) {
 
-        int originX = ((int) width / 2);
-        int originY = ((int) height / 2);
+        int originX = ((int) this.width / 2);
+        int originY = ((int) this.height / 2);
 
         float scaleX = 1;
         float scaleY = 1;
@@ -222,56 +220,60 @@ public class Barra {
         double widthBase = Gdx.graphics.getWidth() * .17f;
         double heightBase = Gdx.graphics.getHeight() * .34f;
 
-        batch.draw(baseImg, (int) (posX + originX - (widthBase / 2)), (int) (posY + originY - (widthBase * .9f)), (int) (widthBase ), (int) (heightBase));
+        batch.draw(this.baseImg, (int) (this.posX + originX - (widthBase / 2)), (int) (this.posY + originY - (widthBase * .9f)), (int) (widthBase ), (int) (heightBase));
 
-        if (showRegla) {
+        if (this.showRegla) {
 
             double ratio = 4.5f;
-            double changeInHeight = (height * (ratio - 1));
+            double changeInHeight = (this.height * (ratio - 1));
 
-            batch.draw(reglaImg,
-                    posX, (int) (posY - changeInHeight),
+            batch.draw(this.reglaImg,
+                    this.posX, (int) (this.posY - changeInHeight),
                     originX, (int) (originY + changeInHeight),
-                    (int) width, (int) (height * ratio),
+                    (int) width, (int) (this.height * ratio),
                     scaleX, scaleY,
-                    (float) rotation,
+                    (float) this.rotation,
                     0, 0,
-                    reglaImg.getWidth(), reglaImg.getHeight(),
+                    this.reglaImg.getWidth(), this.reglaImg.getHeight(),
                     false, false);
         } else {
-            if (showMarcas) {
+            if (this.showMarcas) {
                 dibujarMarcas(batch);
             }
-            batch.draw(barraImg,
-                    posX, posY,
+            batch.draw(this.barraImg,
+                    this.posX, this.posY,
                     originX, originY,
-                    (int) width, (int) height,
+                    (int) this.width, (int) this.height,
                     scaleX, scaleY,
-                    (float) rotation,
+                    (float) this.rotation,
                     0, 0,
-                    barraImg.getWidth(), barraImg.getHeight(),
+                    this.barraImg.getWidth(), this.barraImg.getHeight(),
                     false, false);
         }
 
-        if (showNivel) {
+//        System.out.println(posX);
+
+//        rotation--;
+
+        if (this.showNivel) {
 
         }
 
-        for (int i = 0;  i < bloques.length; i++) {
-            if (bloques[i] != null) {
-                bloques[i].render(batch, this, i);
+        for (int i = 0;  i < this.bloques.length; i++) {
+            if (this.bloques[i] != null) {
+                this.bloques[i].render(batch, this, i);
             }
         }
     }
 
     public void dispose() {
-        barraImg.dispose();
-        reglaImg.dispose();
-        baseImg.dispose();
-        marcasImg.dispose();
-        for (int i = 0;  i < bloques.length; i++) {
-            if (bloques[i] != null) {
-                bloques[i].dispose();
+        this.barraImg.dispose();
+        this.reglaImg.dispose();
+        this.baseImg.dispose();
+        this.marcasImg.dispose();
+        for (int i = 0;  i < this.bloques.length; i++) {
+            if (this.bloques[i] != null) {
+                this.bloques[i].dispose();
             }
         }
     }
