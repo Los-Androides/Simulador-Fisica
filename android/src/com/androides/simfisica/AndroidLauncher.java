@@ -50,7 +50,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 
     @Override
     public void onButtonClick(String option) {
-        Toast.makeText(this, "choice is" + option,Toast.LENGTH_SHORT).show();
         if (option == "Juego"){
             displayJuego();
         }
