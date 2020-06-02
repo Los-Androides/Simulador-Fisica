@@ -56,7 +56,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
     public void displayJuego(){
 
         VistaJuego vistaJuego = new VistaJuego();
-        getSupportFragmentManager().beginTransaction().add(R.id.game_container, vistaJuego).addToBackStack(null).commit();
+       // getSupportFragmentManager().beginTransaction().add(R.id.game_container, vistaJuego).addToBackStack(null).commit();
 
         Juego juegoFragment = Juego.newInstance(mRadioButtonChoice);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

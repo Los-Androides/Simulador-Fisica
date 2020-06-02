@@ -1,14 +1,20 @@
 package com.androides.simfisica;
 
+import android.annotation.SuppressLint;
+import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -20,7 +26,7 @@ public class Juego extends Fragment {
     OnFragmentInteractionListener mListener;
     private static final String OPCION_MOSTRAR = "opcion_mostrar";
     private static final int REGLA = 1;
-    private static final int MARCA = 2 ;
+    private static final int MARCA = 2;
     private static final int NINGUNO = 3;
     public int mRadioButtonChoice = NINGUNO;
 
@@ -29,57 +35,128 @@ public class Juego extends Fragment {
 
     }
 
-    public static Juego newInstance(int choice){
+    public static Juego newInstance(int choice) {
 
         Juego fragment = new Juego();
         Bundle arguments = new Bundle();
-        arguments.putInt(OPCION_MOSTRAR,choice);
+        arguments.putInt(OPCION_MOSTRAR, choice);
         fragment.setArguments(arguments);
 
         return fragment;
     }
 
 
-    interface OnFragmentInteractionListener{
+    interface OnFragmentInteractionListener {
         void onRadioButtonChoice(int choice);
+
         void onButtonClick(String option);
     }
 
+    //imagenes base
+    ImageView barra;
+    ImageView regla;
+    //imagenes de los objetos
+    ImageView kg5, kg10, kg15, kg20;
+    //titulo de los objetos
+    TextView tkg5, tkg10, tkg15, tkg20;
+    //distancia de los textView
+    TextView l2m, l15m, l1m, l05m;
+    TextView r2m, r15m, r1m, r05m;
+    CheckBox fuerza, masa, nivel;
+    TextView fi, fd;
+    ImageView Im2;
+    Button limpia;
 
 
-
+    @SuppressLint("CutPasteId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
 
+        fi = rootView.findViewById(R.id.fi);
+        fd = rootView.findViewById(R.id.fd);
+        //Checkbox
+        fuerza = rootView.findViewById(R.id.checkbox_fuerzaObj);
+        masa = rootView.findViewById(R.id.checkbox_valorMasa);
+        nivel = rootView.findViewById(R.id.checkbox_nivel);
+        //obtencio de las imagenes de las barras
+        barra = rootView.findViewById(R.id.Barra);
+        regla = rootView.findViewById(R.id.Regla);
+        //textos de los pesos
+        tkg5 = rootView.findViewById(R.id.tkg5);
+        tkg10 = rootView.findViewById(R.id.tkg10);
+        tkg15 = rootView.findViewById(R.id.tkg15);
+        tkg20 = rootView.findViewById(R.id.tkg20);
+        //imagenes de los pesos
+        kg5 = rootView.findViewById(R.id.kg5);
+        kg10 = rootView.findViewById(R.id.kg10);
+        kg15 = rootView.findViewById(R.id.kg15);
+        kg20 = rootView.findViewById(R.id.kg20);
+        //listener para el drag and drop
+        kg5.setOnLongClickListener(longClickListener);
+        kg10.setOnLongClickListener(longClickListener);
+        kg15.setOnLongClickListener(longClickListener);
+        kg20.setOnLongClickListener(longClickListener);
+        Im2.setOnDragListener(dragListener);
+        //arreglo de imagenes
 
-        final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
+        //imagen sobre la barra
+
+        final RadioGroup radioGroup = rootView.findViewById(R.id.radio_group);
         final CheckBox checkFuerzaObj = rootView.findViewById(R.id.checkbox_fuerzaObj);
         final CheckBox checkMasa = rootView.findViewById(R.id.checkbox_valorMasa);
         final CheckBox checkNivel = rootView.findViewById(R.id.checkbox_nivel);
 
 
-        if(checkFuerzaObj.isChecked()){
-            Log.d("myTag","Guerza");
-        }
-        if(checkMasa.isChecked()){
-            Log.d("myTag","Masa");
-        }
-        if(checkNivel.isChecked()){
-            Log.d("myTag","Nivel");
-        }
+        masa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (masa.isChecked()) {
+                    Log.d("myTag", "Masa");
+                    tkg5.setVisibility(View.VISIBLE);
+                    tkg10.setVisibility(View.VISIBLE);
+                    tkg15.setVisibility(View.VISIBLE);
+                    tkg20.setVisibility(View.VISIBLE);
+                } else {
+                    tkg5.setVisibility(View.INVISIBLE);
+                    tkg10.setVisibility(View.INVISIBLE);
+                    tkg15.setVisibility(View.INVISIBLE);
+                    tkg20.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        fuerza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fuerza.isChecked()) {
+                    fi.setText("pasa");
+                    fd.setText("pasa");
+                } else {
+                    fi.setText("30");
+                    fd.setText("40");
+                }
+            }
+        });
+        nivel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (nivel.isChecked()) {
+                    Log.d("myTag", "Nivel");
+                }
+            }
+        });
 
 
         //Checas si hay una checkbox seleccionada
         //onCheckboxClicked(rootView);
 
         //Checa si hay un RadioButton seleccionado
-       if(getArguments().containsKey(OPCION_MOSTRAR)){
-            mRadioButtonChoice=getArguments().getInt(OPCION_MOSTRAR);
+        if (getArguments().containsKey(OPCION_MOSTRAR)) {
+            mRadioButtonChoice = getArguments().getInt(OPCION_MOSTRAR);
 
-            if(mRadioButtonChoice != NINGUNO){
+            if (mRadioButtonChoice != NINGUNO) {
                 radioGroup.check(radioGroup.getChildAt(mRadioButtonChoice).getId());
             }
         }
@@ -92,48 +169,88 @@ public class Juego extends Fragment {
                 View radioButton = radioGroup.findViewById(checkedId);
                 int index = radioGroup.indexOfChild(radioButton);
 
-                switch (index){
-
-                    case REGLA:
-                        //Agrega método que dibuje la regla
-                        Log.d("myTag","Regla");
-
-                        mRadioButtonChoice = REGLA;
-                        mListener.onRadioButtonChoice(REGLA);
-                        break;
+                switch (index) {
 
                     case MARCA:
                         //Agrega método que dibuje la MARCA
-                        Log.d("myTag","Marca");
+                        Log.d("myTag", "Marca");
                         mRadioButtonChoice = MARCA;
                         mListener.onRadioButtonChoice(MARCA);
+                        barra.setVisibility(View.VISIBLE);
+                        regla.setVisibility(View.GONE);
                         break;
 
-                    default:
+                    case REGLA:
+                        //Agrega método que dibuje la regla
 
-                        //Agrega método que dibuje nada
-                        Log.d("myTag","Nada");
-                        mRadioButtonChoice = NINGUNO;
-                        mListener.onRadioButtonChoice(NINGUNO);
+                        Log.d("myTag", "Regla");
+                        mRadioButtonChoice = REGLA;
+                        mListener.onRadioButtonChoice(REGLA);
+                        regla.setVisibility(View.VISIBLE);
+                        barra.setVisibility(View.GONE);
                         break;
 
                 }
-
             }
         });
 
-                return rootView;
+        return rootView;
     }
-    @Override
-    public void onAttach(Context context){
 
-        super.onAttach(context);
-        if(context instanceof  OnFragmentInteractionListener){
-            mListener =(OnFragmentInteractionListener) context;
+    View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+
+        @Override
+        public boolean onLongClick(View v) {
+            ClipData data = ClipData.newPlainText("", "");
+            View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
+            v.startDrag(data, myShadowBuilder, v, 0);
+            return true;
         }
-        else {
-            throw new ClassCastException(context.toString() + getResources().getString(R.string.exception_message));
+    };
+
+    View.OnDragListener dragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int dragEvent = event.getAction();
+            int id;
+            final View view = (View) event.getLocalState();
+            switch (dragEvent) {
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+                case DragEvent.ACTION_DROP:
+                    if (view.getId() == R.id.kg5) {
+
+
+                    } else if (view.getId() == R.id.kg10) {
+                    } else if (view.getId() == R.id.kg15) {
+                    } else if (view.getId() == R.id.kg20) {
+
+
+                    }
+                    break;
+            }
+            return true;
         }
-    }
+
+        };
+
+
+
+
+
+
+        @Override
+        public void onAttach(Context context) {
+
+            super.onAttach(context);
+            if (context instanceof OnFragmentInteractionListener) {
+                mListener = (OnFragmentInteractionListener) context;
+            } else {
+                throw new ClassCastException(context.toString() + getResources().getString(R.string.exception_message));
+            }
+        }
+
 
 }
