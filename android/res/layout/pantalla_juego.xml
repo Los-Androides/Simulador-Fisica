@@ -8,6 +8,10 @@
     android:screenOrientation="landscape"
     tools:context=".Juego">
 
+    <FrameLayout
+        android:id="@+id/game_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <TextView
         android:id="@+id/textView"
@@ -25,195 +29,111 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.925" />
 
-    <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="139dp"
-            android:layout_height="259dp"
-            android:background="#D7EAE6D9"
-            android:orientation="vertical"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.988"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.105">
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="139dp"
+        android:layout_height="220dp"
+        android:background="#D7EAE6D9"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.988"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105">
+
+        <TextView
+            android:id="@+id/posicion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Posición"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="52dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_valorMasa"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:checked="false"
+            android:text="Valores de las masas"
+
+            android:textColor="#000000"
+            android:textSize="13sp"
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="47dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_fuerzaObj"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/fuerza"
+            android:textColor="#000000"
+            android:textSize="13sp"
+
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="13dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_nivel"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:text="@string/nivelMenu"
+            android:textColor="#000000"
+            android:textSize="13sp"
+
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="81dp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="79dp">
 
             <TextView
-                android:id="@+id/posicion"
-                android:layout_width="match_parent"
+                android:id="@+id/mostrar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Posición"
+                android:text="Mostrar"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="97dp"
                 tools:layout_editor_absoluteY="52dp" />
 
-            <CheckBox
-                android:id="@+id/checkbox_valorMasa"
+            <RadioButton
+                android:id="@+id/radioBtn_regla"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:text="Valores de las masas"
+                android:checked="false"
+                android:text="@string/regla"
                 android:textColor="#000000"
                 android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
 
-                tools:layout_editor_absoluteX="503dp"
-                tools:layout_editor_absoluteY="47dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_fuerzaObj"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:text="@string/fuerza"
-                android:textColor="#000000"
-                android:textSize="13sp"
-
-                tools:layout_editor_absoluteX="503dp"
-                tools:layout_editor_absoluteY="13dp" />
-
-            <CheckBox
-                android:id="@+id/checkbox_nivel"
+            <RadioButton
+                android:id="@+id/radioBtn_marcas"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:text="@string/nivelMenu"
+                android:checked="false"
+                android:text="@string/marcas"
                 android:textColor="#000000"
                 android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
 
-                tools:layout_editor_absoluteX="503dp"
-                tools:layout_editor_absoluteY="81dp" />
-
-            <RadioGroup
-                android:id="@+id/radio_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="157dp"
-                tools:layout_editor_absoluteY="79dp">
-
-                <TextView
-                    android:id="@+id/mostrar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Mostrar"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:layout_editor_absoluteX="97dp"
-                    tools:layout_editor_absoluteY="52dp" />
-
-                <RadioButton
-                    android:id="@+id/radioBtn_regla"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:background="#F2F2F2"
-                    android:text="@string/regla"
-                    android:textColor="#000000"
-                    android:textSize="13sp"
-                    tools:layout_editor_absoluteX="62dp"
-                    tools:layout_editor_absoluteY="68dp" />
-
-                <RadioButton
-                    android:id="@+id/radioBtn_marcas"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:text="@string/marcas"
-                    android:textColor="#000000"
-                    android:textSize="13sp"
-                    tools:layout_editor_absoluteX="62dp"
-                    tools:layout_editor_absoluteY="68dp" />
-
-                <RadioButton
-                    android:id="@+id/radioBtn_ninguna"
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp"
-                    android:text="@string/ninguno"
-                    android:textColor="#000000"
-                    android:textSize="13sp"
-                    tools:layout_editor_absoluteX="62dp"
-                    tools:layout_editor_absoluteY="68dp" />
-
-            </RadioGroup>
+        </RadioGroup>
 
 
-        </LinearLayout>
-    <ImageView
-        android:id="@+id/Base"
-        android:layout_width="234dp"
-        android:layout_height="244dp"
-        android:layout_marginTop="240dp"
-        android:src="@drawable/base"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/Barra"
-        android:layout_width="504dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="72dp"
-        android:src="@drawable/tabla"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/Regla"
-        android:layout_width="520dp"
-        android:layout_height="128dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="60dp"
-        android:src="@drawable/regla"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/kg10"
-        android:layout_width="57dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="176dp"
-        android:layout_marginLeft="176dp"
-        android:layout_marginTop="45dp"
-        android:src="@drawable/kg10"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/kg5"
-        android:layout_width="58dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="56dp"
-        android:src="@drawable/kg5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/kg15"
-        android:layout_width="65dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="44dp"
-        android:src="@drawable/kg15"
-        app:layout_constraintStart_toEndOf="@+id/kg10"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/kg20"
-        android:layout_width="89dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="44dp"
-        android:src="@drawable/kg20"
-        app:layout_constraintStart_toEndOf="@+id/kg15"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tkg5"
@@ -319,28 +239,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
-        android:id="@+id/prueba2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginBottom="200dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/prueba3"
-        android:layout_width="50dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginBottom="148dp"
-        android:src="@drawable/kg15"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

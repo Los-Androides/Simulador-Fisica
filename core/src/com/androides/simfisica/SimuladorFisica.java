@@ -26,6 +26,21 @@ public class SimuladorFisica extends  ApplicationAdapter {
 	boolean calcularTorque;
 	boolean aceleracionNegativa;
 
+	public interface InterfazJuego {
+		void mostrarRegla();
+		void mostrarMarcas(int score);
+		void mostrarNiguna();
+
+		void agregarBloque(int pos);
+		void quitarBloque(int pos);
+	}
+
+	private InterfazJuego context;
+
+//	public SimuladorFisica(InterfazJuego context) {
+//		this.context = context;
+//	}
+
 	private Bloque crearBloque(int peso, int tipo) {
 		double wb = (barra.getWidth() / 2) * .9f;
 

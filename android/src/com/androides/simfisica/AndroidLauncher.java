@@ -17,12 +17,14 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks, MenuFragment.OnFragmentInteractionListener,Juego.OnFragmentInteractionListener {
+public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks, MenuFragment.OnFragmentInteractionListener, Juego.OnFragmentInteractionListener {
 
     //La opción 3 significa Ninguno en el menú "mostrar" de Juego
     private int mRadioButtonChoice = 3;
@@ -34,15 +36,13 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 
         setContentView(R.layout.activity_main);
         displayMenuFragment();
-
     }
 
     public void displayMenuFragment(){
 	    MenuFragment menuFragment = new MenuFragment();
 	    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, menuFragment).commit();
     }
-
-
+    
     @Override
     public void onButtonClick(String option) {
         Toast.makeText(this, "choice is" + option,Toast.LENGTH_SHORT).show();
@@ -55,17 +55,33 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
     }
     public void displayJuego(){
 
-        VistaJuego vistaJuego = new VistaJuego();
-       // getSupportFragmentManager().beginTransaction().add(R.id.game_container, vistaJuego).addToBackStack(null).commit();
+//        VistaJuego juego = new VistaJuego();
+//        View vistaJuego = juego.getVistaJuego();
+
+//        AndroidApplication ap = new AndroidApplication();
+//
+//        SimuladorFisica game = new SimuladorFisica();
+//        View gameView = ap.initializeForView(game);
+
+//        Layout layout = getLayoutInflater().inflate(R.layout.pantalla_juego, null, false);
+//        View view = getLayoutInflater().inflate(R.layout.pantalla_juego, null, false);
+
+//        FrameLayout fl = findViewById(R.id.game_container);
+//        fl.addView(gameView);
+
+        // Create libgdx fragment
+        VistaJuego libgdxFragment = new VistaJuego();
+
+        // Put it inside the framelayout (which is defined in the layout.xml file).
+        getSupportFragmentManager().beginTransaction().
+                add(R.id.game_container, libgdxFragment).
+                commit();
 
         Juego juegoFragment = Juego.newInstance(mRadioButtonChoice);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container,juegoFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
-
-
     }
 
     public void displayQuizFragment(){
@@ -74,7 +90,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.replace(R.id.fragment_container,questionFragment);
         transaction.addToBackStack(null);
         transaction.commit();
-
     }
 
     @Override

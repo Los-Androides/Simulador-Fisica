@@ -1,5 +1,9 @@
 package com.androides.simfisica;
 
+<<<<<<< HEAD
+=======
+import android.annotation.SuppressLint;
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
 import android.content.ClipData;
 import android.content.Context;
 import android.graphics.drawable.ClipDrawable;
@@ -50,6 +54,7 @@ public class Juego extends Fragment {
         void onRadioButtonChoice(int choice);
         void onButtonClick(String option);
     }
+<<<<<<< HEAD
 
     ImageView barra;
     ImageView regla;
@@ -61,12 +66,37 @@ public class Juego extends Fragment {
     CheckBox fuerza,masa,nivel;
     TextView p;
 
+=======
+    //imagenes base
+    ImageView barra;
+    ImageView regla;
+    //imagenes de los objetos
+    ImageView kg5,kg10,kg15,kg20;
+    //titulo de los objetos
+    TextView tkg5,tkg10,tkg15,tkg20;
+    //distancia de los textView
+    TextView l2m,l15m,l1m,l05m;
+    TextView r2m,r15m,r1m,r05m;
+    CheckBox fuerza,masa,nivel;
+    TextView fi,fd;
+    ImageView Im2;
+    Button limpia;
+
+
+    @SuppressLint("CutPasteId")
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
+<<<<<<< HEAD
         p = rootView.findViewById(R.id.prueba);
+=======
+        Im2 = rootView.findViewById(R.id.Im2);
+        fi = rootView.findViewById(R.id.fi);
+        fd = rootView.findViewById(R.id.fd);
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
         //Checkbox
         fuerza = rootView.findViewById(R.id.checkbox_fuerzaObj);
         masa = rootView.findViewById(R.id.checkbox_valorMasa);
@@ -89,13 +119,21 @@ public class Juego extends Fragment {
         kg10.setOnLongClickListener(longClickListener);
         kg15.setOnLongClickListener(longClickListener);
         kg20.setOnLongClickListener(longClickListener);
+<<<<<<< HEAD
         //imagen sobre la barra
         p.setOnDragListener(dragListener);
+=======
+        Im2.setOnDragListener(dragListener);
+        //arreglo de imagenes
+
+        //imagen sobre la barra
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
         final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
         final CheckBox checkFuerzaObj = rootView.findViewById(R.id.checkbox_fuerzaObj);
         final CheckBox checkMasa = rootView.findViewById(R.id.checkbox_valorMasa);
         final CheckBox checkNivel = rootView.findViewById(R.id.checkbox_nivel);
 
+<<<<<<< HEAD
 
         if(checkFuerzaObj.isChecked()){
             Log.d("myTag","Fuerza");
@@ -117,6 +155,48 @@ public class Juego extends Fragment {
         if(checkNivel.isChecked()){
             Log.d("myTag","Nivel");
         }
+=======
+        masa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(masa.isChecked()){
+                    Log.d("myTag","Masa");
+                    tkg5.setVisibility(View.VISIBLE);
+                    tkg10.setVisibility(View.VISIBLE);
+                    tkg15.setVisibility(View.VISIBLE);
+                    tkg20.setVisibility(View.VISIBLE);
+                }
+                else{
+                    tkg5.setVisibility(View.INVISIBLE);
+                    tkg10.setVisibility(View.INVISIBLE);
+                    tkg15.setVisibility(View.INVISIBLE);
+                    tkg20.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+        fuerza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fuerza.isChecked()){
+                    fi.setText("pasa");
+                    fd.setText("pasa");
+                }
+                else{
+                    fi.setText("30");
+                    fd.setText("40");
+                }
+            }
+        });
+        nivel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(nivel.isChecked()){
+                    Log.d("myTag","Nivel");
+                }
+            }
+        });
+
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
         //Checas si hay una checkbox seleccionada
 
         //Checa si hay un RadioButton seleccionado
@@ -166,9 +246,12 @@ public class Juego extends Fragment {
 
                 return rootView;
     }
+<<<<<<< HEAD
     public void masas(View view){
 
     };
+=======
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
     View.OnLongClickListener longClickListener = new View.OnLongClickListener(){
 
         @Override
@@ -181,6 +264,7 @@ public class Juego extends Fragment {
     };
 
     View.OnDragListener dragListener = new View.OnDragListener(){
+<<<<<<< HEAD
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
@@ -198,6 +282,27 @@ public class Juego extends Fragment {
                     }
                     break;
                 case DragEvent.ACTION_DROP:
+=======
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int dragEvent = event.getAction();
+            int id;
+            final View view = (View) event.getLocalState();
+            switch (dragEvent){
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+                case DragEvent.ACTION_DROP:
+                    if(view.getId() == R.id.kg5) {
+                        id = getResources().getIdentifier("5kg","drawable",getPackageName());
+                        I2m.setImageResource(id);
+                    }
+                     else if(view.getId() == R.id.kg10){
+                        id = getResources().getIdentifier("10kg","drawable",getPackageName());
+                        I2m.setImageResource(id);
+                }
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
                     break;
             }
             return true;

@@ -9,6 +9,7 @@
     tools:context=".Juego">
 
 
+<<<<<<< HEAD
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -29,12 +30,86 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=" Posición"
+=======
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="139dp"
+        android:layout_height="220dp"
+        android:background="#D7EAE6D9"
+        android:orientation="vertical"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.988"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105">
+
+        <TextView
+            android:id="@+id/posicion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=" Posición"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="97dp"
+            tools:layout_editor_absoluteY="52dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_valorMasa"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:checked="false"
+            android:text="Valores de las masas"
+
+            android:textColor="#000000"
+            android:textSize="13sp"
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="47dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_fuerzaObj"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:text="@string/fuerza"
+            android:textColor="#000000"
+            android:textSize="13sp"
+
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="13dp" />
+
+        <CheckBox
+            android:id="@+id/checkbox_nivel"
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:text="@string/nivelMenu"
+            android:textColor="#000000"
+            android:textSize="13sp"
+
+            tools:layout_editor_absoluteX="503dp"
+            tools:layout_editor_absoluteY="81dp" />
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="157dp"
+            tools:layout_editor_absoluteY="79dp">
+
+            <TextView
+                android:id="@+id/mostrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mostrar"
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="97dp"
                 tools:layout_editor_absoluteY="52dp" />
 
+<<<<<<< HEAD
             <CheckBox
                 android:id="@+id/checkbox_valorMasa"
                 android:layout_width="match_parent"
@@ -114,6 +189,34 @@
 
 
         </LinearLayout>
+=======
+            <RadioButton
+                android:id="@+id/radioBtn_regla"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:checked="false"
+                android:text="@string/regla"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
+
+            <RadioButton
+                android:id="@+id/radioBtn_marcas"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:checked="false"
+                android:text="@string/marcas"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                tools:layout_editor_absoluteX="62dp"
+                tools:layout_editor_absoluteY="68dp" />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
 
     <ImageView
         android:id="@+id/Base"
@@ -242,6 +345,7 @@
         app:layout_constraintStart_toEndOf="@+id/tkg15"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/prueba"
         android:layout_width="wrap_content"
@@ -253,6 +357,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+=======
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
     <Button
         android:id="@+id/reset"
         android:layout_width="wrap_content"
@@ -276,7 +382,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+<<<<<<< HEAD
         android:id="@+id/textView11"
+=======
+        android:id="@+id/fi"
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
         android:layout_width="59dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -294,11 +404,19 @@
         android:layout_marginLeft="92dp"
         android:layout_marginTop="152dp"
         android:text="Torca lado derecho"
+<<<<<<< HEAD
         app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
+=======
+        app:layout_constraintStart_toEndOf="@+id/fi"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fd"
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -308,5 +426,43 @@
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
+=======
+    <ImageView
+        android:id="@+id/Im2"
+        android:layout_width="31dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="132dp"
+        android:src="@drawable/kg5"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/prueba2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginBottom="200dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/prueba3"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginBottom="148dp"
+        android:src="@drawable/kg15"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+>>>>>>> a0e8904c1bd321eca06fb579532415c22c1ff223
 
 </androidx.constraintlayout.widget.ConstraintLayout>
