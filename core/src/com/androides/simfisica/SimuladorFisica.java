@@ -21,6 +21,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 	private SpriteBatch batch;
 	private Texture background;
+	private Texture cuadroBlanco;
 	private Texture bloquesImg[];
 	private Barra barra;
 //	ShapeRenderer sr;
@@ -101,6 +102,52 @@ public class SimuladorFisica extends ApplicationAdapter {
 		double w = widthBloque;//bloques[pos].getWidth();
 		double h = heightBloque;//bloques[pos].getHeight();
 		batch.draw(bloquesImg[pos], (int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)), (int) (w), (int) (h));
+
+		double espacio = barra.getWidth() / 16;
+		for (int i = 0; i < 16; i++) {
+			if (barra.getPosX() + (espacio * i) <= bloqueX && bloqueX < barra.getPosX() + (espacio * (i + 1))) {
+//				batch.draw(cuadroBlanco,
+//						(int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)),
+//						(int) (w), (int) (h));
+
+				double wb = (barra.getWidth() / 2) * .9f;
+				double cuadroWidth = wb / 8;
+				double cuadroHeight = barra.getHeight();
+
+				int x;
+				int y = barra.getPosY();
+
+				double originX = (barra.getWidth() / 2);
+				double originY = barra.getHeight() / 2;
+
+				double val, extra, half = (cuadroWidth / 2);
+
+				if (pos < 8) {
+					val = ((i) * (int)(cuadroWidth));
+					extra = 0;
+
+				} else {
+					int posicion = (16 - i);
+					val = -(posicion * cuadroWidth);
+					half *= -1;
+					extra = barra.getWidth();
+				}
+
+				x = (int) (barra.getPosX() + half + val + extra);
+
+				originX -= x - barra.getPosX();
+
+				batch.draw(cuadroBlanco,
+						x, y,
+						(int) originX, (int) originY,
+						(int) (cuadroWidth), (int) (cuadroHeight),
+						1, 1,
+						(float) barra.getRotation(),
+						0, 0,
+						cuadroBlanco.getWidth(), cuadroBlanco.getHeight(),
+						false, false);
+			}
+		}
 	}
 
 	private void dragAndDrop() {
@@ -184,8 +231,9 @@ public class SimuladorFisica extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
-		bloquesImg = new Texture[4];
+		cuadroBlanco = new Texture("cuadro_blanco.png");
 
+		bloquesImg = new Texture[4];
 		bloquesImg[0] = new Texture("kg5.png");
 		bloquesImg[1] = new Texture("kg10.png");
 		bloquesImg[2] = new Texture("kg15.png");
@@ -236,6 +284,8 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
 
+		barra.render(batch);
+
 		dragAndDrop();
 
 		if (calcularTorque) {
@@ -246,7 +296,6 @@ public class SimuladorFisica extends ApplicationAdapter {
         	actualizarRotacion();
 		}
 
-		barra.render(batch);
 
         for (int i = 0; i < 4; i++) {
         	bloques[i].render(batch, null,0);
