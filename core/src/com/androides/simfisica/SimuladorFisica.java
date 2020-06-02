@@ -260,7 +260,10 @@ public class SimuladorFisica extends ApplicationAdapter {
 		bloques = new Bloque[4];
 
 		for (int i = 0; i < 4; i++) {
-			bloques[i] = crearBloque((i + 1), 300 * (i + 1), 750, false);
+		    double w = screenWidth * .13f;
+		    double h = screenHeight * .23f;
+
+			bloques[i] = crearBloque((i + 1), (int) (w * (i + 1)), (int) (screenHeight - h), false);
 		}
 
         torqueDerecho = 0;
