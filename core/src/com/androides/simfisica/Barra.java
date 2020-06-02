@@ -16,6 +16,7 @@ public class Barra {
 
     boolean showRegla;
     boolean showMarcas;
+    boolean showNivel;
 
     double width;
     double height;
@@ -23,12 +24,6 @@ public class Barra {
     double rotation;
 
     Bloque bloques[];
-
-    public interface SimJuegoInterface {
-        public void mostrarRegla(boolean val);
-        public void mostrarMarca(boolean val);
-        public void mostrarFuerzas(boolean val);
-    }
 
     public Barra(double w, double h, int x, int y) {
         this.barraImg = new Texture("tabla.png");
@@ -43,7 +38,8 @@ public class Barra {
         }
 
         this.showRegla = false;
-        this.showMarcas = true;//false;
+        this.showMarcas = false;
+        this.showNivel = false;
 
         this.width = w;
         this.height = h;
@@ -68,6 +64,7 @@ public class Barra {
 
     public boolean isShowRegla() { return showRegla;}
     public boolean isShowMarcas () { return showMarcas;}
+    public boolean isShowNivel () { return showNivel;}
 
     // setters
 
@@ -83,6 +80,7 @@ public class Barra {
 
     public void setShowRegla(boolean val) { showRegla = val; }
     public void setShowMarcas(boolean val) { showMarcas = val; }
+    public void setShowNivel(boolean val) { showNivel = val; }
 
     // methods
 

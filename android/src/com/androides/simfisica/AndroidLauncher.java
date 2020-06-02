@@ -24,17 +24,22 @@ import androidx.fragment.app.FragmentTransaction;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks, MenuFragment.OnFragmentInteractionListener, Juego.OnFragmentInteractionListener {
+public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks, MenuFragment.OnFragmentInteractionListener, Juego.JuegoListener {
 
     //La opción 3 significa Ninguno en el menú "mostrar" de Juego
     private int mRadioButtonChoice = 3;
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    VistaJuego libgdxFragment;
+
+//    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        libgdxFragment = new VistaJuego();
+
         displayMenuFragment();
     }
 
@@ -42,7 +47,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 	    MenuFragment menuFragment = new MenuFragment();
 	    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, menuFragment).commit();
     }
-    
+
     @Override
     public void onButtonClick(String option) {
         Toast.makeText(this, "choice is" + option,Toast.LENGTH_SHORT).show();
@@ -56,7 +61,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
     public void displayJuego(){
 
         // Create libgdx fragment
-        VistaJuego libgdxFragment = new VistaJuego();
+//        VistaJuego libgdxFragment = new VistaJuego();
 
         // Put it inside the framelayout (which is defined in the layout.xml file).
 
@@ -80,8 +85,18 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
     }
 
     @Override
-    public void onRadioButtonChoice(int choice) {
-
+    public void show(int choice) {
+        switch (choice) {
+            case 1:
+                libgdxFragment.getJuego().mostrarRegla();
+                break;
+            case 2:
+                libgdxFragment.getJuego().mostrarMarcas();
+                break;
+            case 3:
+                libgdxFragment.getJuego().mostrarNiguno();
+                break;
+        }
     }
 
     @Override
