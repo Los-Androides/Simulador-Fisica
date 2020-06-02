@@ -84,9 +84,4 @@ public class AndroidLauncher extends FragmentActivity implements MenuFragment.On
     public void onRadioButtonChoice(int choice) {
 
     }
-
-    @Override
-    public void exit() {
-
-    }
 }
