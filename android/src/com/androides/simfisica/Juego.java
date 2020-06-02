@@ -63,7 +63,7 @@ public class Juego extends Fragment {
     TextView r2m,r15m,r1m,r05m;
     CheckBox fuerza,masa,nivel;
     TextView fi,fd;
-    ImageView Im2;
+//    ImageView Im2;
     Button limpia;
 
 
@@ -73,7 +73,7 @@ public class Juego extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
-        Im2 = rootView.findViewById(R.id.Im2);
+//        Im2 = rootView.findViewById(R.id.Im2);
         fi = rootView.findViewById(R.id.fi);
         fd = rootView.findViewById(R.id.fd);
         //Checkbox
@@ -98,7 +98,7 @@ public class Juego extends Fragment {
         kg10.setOnLongClickListener(longClickListener);
         kg15.setOnLongClickListener(longClickListener);
         kg20.setOnLongClickListener(longClickListener);
-        Im2.setOnDragListener(dragListener);
+//        Im2.setOnDragListener(dragListener);
         //arreglo de imagenes
 
         //imagen sobre la barra
@@ -219,14 +219,14 @@ public class Juego extends Fragment {
                 case DragEvent.ACTION_DRAG_EXITED:
                     break;
                 case DragEvent.ACTION_DROP:
-                    if(view.getId() == R.id.kg5) {
-                        id = getResources().getIdentifier("5kg","drawable",getPackageName());
-                        I2m.setImageResource(id);
-                    }
-                     else if(view.getId() == R.id.kg10){
-                        id = getResources().getIdentifier("10kg","drawable",getPackageName());
-                        I2m.setImageResource(id);
-                }
+//                    if(view.getId() == R.id.kg5) {
+//                        id = getResources().getIdentifier("5kg","drawable",getPackageName());
+//                        I2m.setImageResource(id);
+//                    }
+//                     else if(view.getId() == R.id.kg10){
+//                        id = getResources().getIdentifier("10kg","drawable",getPackageName());
+//                        I2m.setImageResource(id);
+//                    }
                     break;
             }
             return true;
