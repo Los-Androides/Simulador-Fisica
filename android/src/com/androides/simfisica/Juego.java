@@ -53,8 +53,8 @@ public class Juego extends Fragment {
     }
 
     //imagenes base
-    ImageView barra;
-    ImageView regla;
+//    ImageView barra;
+//    ImageView regla;
     //imagenes de los objetos
 
     ImageView kg5,kg10,kg15,kg20;
@@ -187,8 +187,8 @@ public class Juego extends Fragment {
                         Log.d("myTag", "Marca");
                         mRadioButtonChoice = MARCA;
                         mListener.show(MARCA);
-                        barra.setVisibility(View.VISIBLE);
-                        regla.setVisibility(View.GONE);
+//                        barra.setVisibility(View.VISIBLE);
+//                        regla.setVisibility(View.GONE);
                         break;
 
                     case REGLA:
@@ -196,8 +196,8 @@ public class Juego extends Fragment {
 
                         mRadioButtonChoice = REGLA;
                         mListener.show(REGLA);
-                        regla.setVisibility(View.VISIBLE);
-                        barra.setVisibility(View.GONE);
+//                        regla.setVisibility(View.VISIBLE);
+//                        barra.setVisibility(View.GONE);
                         break;
 
                 }
