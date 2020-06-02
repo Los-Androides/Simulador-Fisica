@@ -8,13 +8,19 @@ import android.view.ViewGroup;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 
-public class VistaJuego extends AndroidFragmentApplication {
+public class VistaJuego extends AndroidApplication {
 
+    View vistaJuego;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // return the GLSurfaceView on which libgdx is drawing game stuff
-        return initializeForView(new SimuladorFisica());
+        vistaJuego = initializeForView(new SimuladorFisica());
+        return vistaJuego;
+    }
+
+    public View getVistaJuego() {
+        return vistaJuego;
     }
 
 }
