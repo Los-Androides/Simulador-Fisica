@@ -55,24 +55,11 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
     }
     public void displayJuego(){
 
-//        VistaJuego juego = new VistaJuego();
-//        View vistaJuego = juego.getVistaJuego();
-
-//        AndroidApplication ap = new AndroidApplication();
-//
-//        SimuladorFisica game = new SimuladorFisica();
-//        View gameView = ap.initializeForView(game);
-
-//        Layout layout = getLayoutInflater().inflate(R.layout.pantalla_juego, null, false);
-//        View view = getLayoutInflater().inflate(R.layout.pantalla_juego, null, false);
-
-//        FrameLayout fl = findViewById(R.id.game_container);
-//        fl.addView(gameView);
-
         // Create libgdx fragment
         VistaJuego libgdxFragment = new VistaJuego();
 
         // Put it inside the framelayout (which is defined in the layout.xml file).
+
         getSupportFragmentManager().beginTransaction().
                 add(R.id.game_container, libgdxFragment).
                 commit();
