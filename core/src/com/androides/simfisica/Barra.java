@@ -56,6 +56,9 @@ public class Barra {
     public Texture getReglaImg() { return reglaImg; }
     public Texture getBaseImg() { return baseImg; }
 
+    public double getTorqueIzquierdo(){return  calcularTorqueIzquierdo();}
+    public double getTorqueDerecho(){return calcularTorqueDerecho();}
+
     public int getPosX() { return posX; }
     public int getPosY() { return posY; }
     public double getWidth() { return width; }
