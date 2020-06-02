@@ -159,7 +159,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 		double width = screenWidth * .70f;
 		double height = screenHeight * .05f;
 
-		double x = (screenWidth - width) / 2;
+		double x = ((screenWidth - width) / 2) - 180;
 		double y = (screenHeight * .365f) ;
 
 		barra = new Barra(width, height, (int) (x), (int) (y));
@@ -167,7 +167,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 		bloques = new Bloque[4];
 
 		for (int i = 0; i < 4; i++) {
-			bloques[i] = crearBloque((i + 1), 250 * (i + 1), 100, false);
+			bloques[i] = crearBloque((i + 1), 300 * (i + 1), 750, false);
 		}
 
         torqueDerecho = 0;
