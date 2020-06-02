@@ -42,8 +42,7 @@ public class AndroidLauncher extends FragmentActivity implements MenuFragment.On
 	    MenuFragment menuFragment = new MenuFragment();
 	    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, menuFragment).commit();
     }
-
-
+    
     @Override
     public void onButtonClick(String option) {
         Toast.makeText(this, "choice is" + option,Toast.LENGTH_SHORT).show();
