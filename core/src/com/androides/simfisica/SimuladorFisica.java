@@ -67,6 +67,12 @@ public class SimuladorFisica extends ApplicationAdapter {
 		barra.setShowMarcas(false);
 	}
 
+	public void borrarBloques() {
+		for (int i = 0; i < 16; i++) {
+			barra.quitarBloque(i);
+		}
+	}
+
 	public void mostarNivel(boolean val) {
 	    barra.setShowNivel(val);
     }
