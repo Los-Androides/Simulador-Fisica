@@ -96,10 +96,10 @@ public class Juego extends Fragment {
        // kg15 = rootView.findViewById(R.id.kg15);
        // kg20 = rootView.findViewById(R.id.kg20);
         //listener para el drag and drop
-        kg5.setOnLongClickListener(longClickListener);
-        kg10.setOnLongClickListener(longClickListener);
-        kg15.setOnLongClickListener(longClickListener);
-        kg20.setOnLongClickListener(longClickListener);
+//        kg5.setOnLongClickListener(longClickListener);
+//        kg10.setOnLongClickListener(longClickListener);
+//        kg15.setOnLongClickListener(longClickListener);
+//        kg20.setOnLongClickListener(longClickListener);
 
 //        Im2.setOnDragListener(dragListener);
         //arreglo de imagenes
