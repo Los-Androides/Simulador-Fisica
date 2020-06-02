@@ -12,8 +12,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class SimuladorFisica extends ApplicationAdapter {
+
+	public interface SimuladorFisicaListener {
+		void actualizarTorques();
+	}
+
+	private SimuladorFisicaListener mListener;
+
 	private SpriteBatch batch;
 	private Texture background;
+	private Texture cuadroBlanco;
 	private Texture bloquesImg[];
 	private Barra barra;
 //	ShapeRenderer sr;
@@ -23,6 +31,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 	private double torqueDerecho, torqueIzquierdo, diff;
 	private double rotacion;
 	private double aceleracion;
+	private double angulo;
 
 	private boolean calcularTorque;
 	private boolean aceleracionNegativa;
@@ -56,6 +65,12 @@ public class SimuladorFisica extends ApplicationAdapter {
 	public void mostrarNiguno() {
 		barra.setShowRegla(false);
 		barra.setShowMarcas(false);
+	}
+
+	public void borrarBloques() {
+		for (int i = 0; i < 16; i++) {
+			barra.quitarBloque(i);
+		}
 	}
 
 	public void mostarNivel(boolean val) {
@@ -93,6 +108,52 @@ public class SimuladorFisica extends ApplicationAdapter {
 		double w = widthBloque;//bloques[pos].getWidth();
 		double h = heightBloque;//bloques[pos].getHeight();
 		batch.draw(bloquesImg[pos], (int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)), (int) (w), (int) (h));
+
+		double espacio = barra.getWidth() / 16;
+		for (int i = 0; i < 16; i++) {
+			if (barra.getPosX() + (espacio * i) <= bloqueX && bloqueX < barra.getPosX() + (espacio * (i + 1))) {
+//				batch.draw(cuadroBlanco,
+//						(int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)),
+//						(int) (w), (int) (h));
+
+				double wb = (barra.getWidth() / 2) * .9f;
+				double cuadroWidth = wb / 8;
+				double cuadroHeight = barra.getHeight();
+
+				int x;
+				int y = barra.getPosY();
+
+				double originX = (barra.getWidth() / 2);
+				double originY = barra.getHeight() / 2;
+
+				double val, extra, half = (cuadroWidth / 2);
+
+				if (pos < 8) {
+					val = ((i) * (int)(cuadroWidth));
+					extra = 0;
+
+				} else {
+					int posicion = (16 - i);
+					val = -(posicion * cuadroWidth);
+					half *= -1;
+					extra = barra.getWidth();
+				}
+
+				x = (int) (barra.getPosX() + half + val + extra);
+
+				originX -= x - barra.getPosX();
+
+				batch.draw(cuadroBlanco,
+						x, y,
+						(int) originX, (int) originY,
+						(int) (cuadroWidth), (int) (cuadroHeight),
+						1, 1,
+						(float) barra.getRotation(),
+						0, 0,
+						cuadroBlanco.getWidth(), cuadroBlanco.getHeight(),
+						false, false);
+			}
+		}
 	}
 
 	private void dragAndDrop() {
@@ -104,19 +165,19 @@ public class SimuladorFisica extends ApplicationAdapter {
 				bloqueDrag = false;
 				checarSiSeAgregaBloque();
 			}
-		}
+		} else {
+			if (Gdx.input.isTouched()) {
 
-		if (Gdx.input.isTouched()) {
-
-			int x = Gdx.input.getX();
-			int y  = screenHeight - Gdx.input.getY();
-			for (int i = 0; i < 4; i++) {
-				if (bloques[i].checarSiEstaSeleccionado(x, y)) {
-					bloqueDrag = true;
-					tipoBloqueDrag = bloques[i].getTipo();
-					widthBloque = bloques[i].getWidth();
-					heightBloque = bloques[i].getHeight();
-					dibujarBloque();
+				int x = Gdx.input.getX();
+				int y  = screenHeight - Gdx.input.getY();
+				for (int i = 0; i < 4; i++) {
+					if (bloques[i].checarSiEstaSeleccionado(x, y)) {
+						bloqueDrag = true;
+						tipoBloqueDrag = bloques[i].getTipo();
+						widthBloque = bloques[i].getWidth();
+						heightBloque = bloques[i].getHeight();
+						dibujarBloque();
+					}
 				}
 			}
 		}
@@ -128,25 +189,57 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 		diff = torqueIzquierdo - torqueDerecho;
 
+		angulo = Math.pow(Math.abs(diff), 1.25);
+		aceleracion = (angulo - barra.getRotation()) / 8;
+		int signo = (diff < 0) ? -1 : 1;
+		aceleracion *= signo;
+		angulo *= signo;
+
+		calcularTorque = false;
+		aceleracionNegativa = (aceleracion > 0) ? false : true;
+
 		System.out.println("Valores ----------------------------------------");
 		System.out.println("Izq " + torqueIzquierdo);
 		System.out.println("Der " + torqueDerecho);
 		System.out.println("diff " + diff);
 		System.out.println("rot " + rotacion);
+		System.out.println("ang " + angulo);
+		System.out.println("ace " + aceleracion);
 
-		aceleracion = Math.pow(Math.abs(diff), 0.9);
-		aceleracion *= (diff > 0) ? 1 : -1;
+//		mListener.actualizarTorques();
+	}
 
-		calcularTorque = false;
-		aceleracionNegativa = (aceleracion > 0) ? false : true;
+	private void actualizarRotacion() {
+		rotacion += aceleracion * Gdx.graphics.getDeltaTime();
+
+		if (aceleracionNegativa) {
+			if (rotacion <= angulo) {
+				aceleracion = 0;
+			}
+		} else {
+			if (rotacion >= angulo) {
+				aceleracion = 0;
+			}
+		}
+
+		if (rotacion > 22) { // limite izquierd
+			rotacion = 22;
+			aceleracion = 0;
+		} else if (rotacion < -22) { // limite derecho
+			rotacion = -22;
+			aceleracion = 0;
+		}
+
+		barra.setRotation(rotacion);
 	}
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
-		bloquesImg = new Texture[4];
+		cuadroBlanco = new Texture("cuadro_blanco.png");
 
+		bloquesImg = new Texture[4];
 		bloquesImg[0] = new Texture("kg5.png");
 		bloquesImg[1] = new Texture("kg10.png");
 		bloquesImg[2] = new Texture("kg15.png");
@@ -175,6 +268,7 @@ public class SimuladorFisica extends ApplicationAdapter {
         diff = 0;
         rotacion = 0;
         aceleracion = 0;
+        angulo = 0;
 
         calcularTorque = true;
         aceleracionNegativa = false;
@@ -196,6 +290,8 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
 
+		barra.render(batch);
+
 		dragAndDrop();
 
 		if (calcularTorque) {
@@ -203,35 +299,9 @@ public class SimuladorFisica extends ApplicationAdapter {
 		}
 
         if (aceleracion != 0) {
-			rotacion += aceleracion * Gdx.graphics.getDeltaTime();
-
-			double val = 0.5 * Gdx.graphics.getDeltaTime();
-			if (aceleracionNegativa) {
-				aceleracion += val;
-				if (aceleracion > 0) {
-					aceleracion = 0;
-				}
-			} else {
-				aceleracion -= val;
-				if (aceleracion < 0) {
-					aceleracion = 0;
-				}
-			}
-
-
-			if (rotacion > 22) { // limite izquierd
-				rotacion = 22;
-				aceleracion = 0;
-			} else if (rotacion < -22) { // limite derecho
-				rotacion = -22;
-                aceleracion = 0;
-			}
-
-			barra.setRotation(rotacion);
-
+        	actualizarRotacion();
 		}
 
-		barra.render(batch);
 
         for (int i = 0; i < 4; i++) {
         	bloques[i].render(batch, null,0);

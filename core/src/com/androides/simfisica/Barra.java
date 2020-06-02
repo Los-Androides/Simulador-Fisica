@@ -92,7 +92,8 @@ public class Barra {
         double torque = 0;
         for (int i = 0;  i < (bloques.length / 2); i++) {
             if (bloques[i] != null) {
-                torque += bloques[i].getPeso() * (((bloques.length / 2) - i) / 4f);
+                double distancia = ((bloques.length / 2) - i) / 4f;
+                torque += bloques[i].getPeso() * (distancia);
             }
         }
         return torque;
@@ -102,8 +103,9 @@ public class Barra {
         double torque = 0;
         for (int i = 0;  i < (bloques.length / 2); i++) {
             int pos = i + (bloques.length / 2);
+            double distancia = (i + 1) / 4f;
             if (bloques[pos] != null) {
-                torque += bloques[pos].getPeso() * ((pos + 1) / 4);
+                torque += bloques[pos].getPeso() * (distancia);
             }
         }
         return torque;

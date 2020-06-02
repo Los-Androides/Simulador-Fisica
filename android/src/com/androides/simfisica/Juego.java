@@ -22,7 +22,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import androidx.fragment.app.Fragment;
 
-public class Juego extends Fragment {
+public class Juego extends Fragment implements SimuladorFisica.SimuladorFisicaListener{
 
     JuegoListener mListener;
     private static final String OPCION_MOSTRAR = "opcion_mostrar";
@@ -118,15 +118,19 @@ public class Juego extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(fuerza.isChecked()){
-                        fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
-                        fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
-                }
-                else{
+            if(fuerza.isChecked()){
+                fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
+                fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
+                fi.setVisibility(View.VISIBLE);
+                fd.setVisibility(View.VISIBLE);
+            }
+            else{
+                fi.setVisibility(View.INVISIBLE);
+                fd.setVisibility(View.INVISIBLE);
+                fi.setText("0");
+                fd.setText("0");
+            }
 
-                    fi.setText("0");
-                    fd.setText("0");
-                }
             }
         });
         nivel.setOnClickListener(new View.OnClickListener() {
@@ -161,25 +165,19 @@ public class Juego extends Fragment {
                 View radioButton = radioGroup.findViewById(checkedId);
                 int index = radioGroup.indexOfChild(radioButton);
 
-
                 switch (index){
-
                     case MARCA:
                         //Agrega método que dibuje la MARCA
                         Log.d("myTag", "Marca");
                         mRadioButtonChoice = MARCA;
                         juego.mostrarMarcas();
-//                        mListener.show(MARCA);
                         break;
 
                     case REGLA:
                         //Agrega método que dibuje la regla
-
                         mRadioButtonChoice = REGLA;
                         juego.mostrarRegla();
-//                        mListener.show(REGLA);
                         break;
-
                 }
             }
         });
@@ -201,31 +199,11 @@ public class Juego extends Fragment {
         }
     };
 
-    View.OnDragListener dragListener = new View.OnDragListener(){
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            int dragEvent = event.getAction();
-            int id;
-            final View view = (View) event.getLocalState();
-            switch (dragEvent){
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-                case DragEvent.ACTION_DROP:
-//                    if(view.getId() == R.id.kg5) {
-//                        id = getResources().getIdentifier("5kg","drawable",getPackageName());
-//                        I2m.setImageResource(id);
-//                    }
-//                     else if(view.getId() == R.id.kg10){
-//                        id = getResources().getIdentifier("10kg","drawable",getPackageName());
-//                        I2m.setImageResource(id);
-//                    }
-                    break;
-            }
-            return true;
-        }
-    };
+    @Override
+    public void actualizarTorques() {
+        fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
+        fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
+    }
 
     @Override
     public void onAttach(Context context) {
