@@ -182,10 +182,14 @@ public class Juego extends Fragment implements SimuladorFisica.SimuladorFisicaLi
             }
         });
 
+        rootView.findViewById(R.id.reset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                juego.borrarBloques();
+            }
+        });
+
         return rootView;
-    }
-    public void reset(View view){
-        juego.borrarBloques();
     }
 
     View.OnLongClickListener longClickListener = new View.OnLongClickListener(){

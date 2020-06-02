@@ -71,6 +71,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 		for (int i = 0; i < 16; i++) {
 			barra.quitarBloque(i);
 		}
+		calcularTorque();
 	}
 
 	public void mostarNivel(boolean val) {
