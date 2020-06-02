@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Bloque {
-    private Texture bloqueImg;
+    Texture bloqueImg;
 
     private double width;
     private double height;
@@ -16,11 +16,21 @@ public class Bloque {
     private double peso;
     private int tipo;
 
-    public Bloque(double w, double h, int num) {
+    private int posX;
+    private int posY;
+
+    private boolean estaEnBarra;
+
+    public Bloque(double w, double h, int num, int x, int y, boolean enBarra) {
         this.width = w;
         this.height = h;
 
         this.tipo = num;
+
+        this.posX = x;
+        this.posY = y;
+
+        this.estaEnBarra = enBarra;
 
         String path = "";
 
@@ -50,8 +60,9 @@ public class Bloque {
 
     public Texture getBloqueImg() { return bloqueImg; }
     public double getWidth()      { return width; }
-    public double getHeight()     { return height; }
+    public double getHeight()     { return height * tipo; }
     public double getPeso()       { return peso * tipo; }
+    public int getTipo()          { return tipo; }
 
     // setters
 
@@ -62,50 +73,61 @@ public class Bloque {
 
     // methods
 
+    public boolean checarSiEstaSeleccionado(int pointerX, int pointerY) {
+
+        if (posX < pointerX && pointerX < (posX + width) && posY < pointerY && pointerY < (posY + height * tipo)) {
+            return true;
+        }
+        return false;
+    }
+
     public void render(SpriteBatch batch, Barra barra, int pos) {
 
-        int x;
-        int y = barra.posY + (int) barra.height;
+        if (estaEnBarra) {
+            posY = barra.getPosY() + (int) barra.getHeight();
 
-        double originX = (barra.getWidth() / 2);
-        double originY = -(barra.getHeight() / 2);
+            double originX = (barra.getWidth() / 2);
+            double originY = -(barra.getHeight() / 2);
 
-        double percentage = .75f;
-        double val = 0;
+            double percentage = .75f;
+            double val = 0;
 
-        double offset = 0;
-        double offHelp = 0;
-        offHelp = (1f - percentage) / 2;
-        offset = ((offHelp * width));
+            double offset = 0;
+            double offHelp = 0;
+            offHelp = (1f - percentage) / 2;
+            offset = ((offHelp * width));
 
-        double extra;
-        double half = (width / 2);
-        double w = this.width * percentage;
+            double extra;
+            double half = (width / 2);
+            double w = this.width * percentage;
 
-        if (pos < 8) {
-            val = ((pos) * (int)(width));
-            extra = 0;
+            if (pos < 8) {
+                val = ((pos) * (int)(width));
+                extra = 0;
 
+            } else {
+                int posicion = (16 - pos);
+                val = -(posicion * width);
+                half *= -1;
+                extra = barra.getWidth();
+            }
+
+            posX = (int) (barra.getPosX() + half + val + offset + extra);
+
+            originX -= posY - barra.getPosX();
+
+            batch.draw(bloqueImg,
+                    posX, posY,
+                    (int) originX, (int) originY,
+                    (int) w, (int) (height * tipo),
+                    1, 1,
+                    (float) barra.getRotation(),
+                    0, 0,
+                    bloqueImg.getWidth(), bloqueImg.getHeight(),
+                    false, false);
         } else {
-            int posicion = (16 - pos);
-            val = -(posicion * width);
-            half *= -1;
-            extra = barra.getWidth();
+            batch.draw(bloqueImg, posX, posY, (int) width, (int) (height * tipo));
         }
-
-        x = (int) (barra.getPosX() + half + val + offset + extra);
-
-        originX -= x - barra.getPosX();
-
-        batch.draw(bloqueImg,
-                x, y,
-                (int) originX, (int) originY,
-                (int) w, (int) (height * tipo),
-                1, 1,
-                (float) barra.rotation,
-                0, 0,
-                bloqueImg.getWidth(), bloqueImg.getHeight(),
-                false, false);
 
     }
 

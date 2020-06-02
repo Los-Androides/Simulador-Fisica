@@ -7,23 +7,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Barra {
-    int posX, posY;
+    private int posX, posY;
 
-    Texture barraImg;
-    Texture reglaImg;
-    Texture baseImg;
-    Texture marcasImg;
+    private Texture barraImg;
+    private Texture reglaImg;
+    private Texture baseImg;
+    private Texture marcasImg;
 
-    boolean showRegla;
-    boolean showMarcas;
-    boolean showNivel;
+    private boolean showRegla;
+    private boolean showMarcas;
+    private boolean showNivel;
 
-    double width;
-    double height;
+    private double width;
+    private double height;
 
-    double rotation;
+    private double rotation;
 
-    Bloque bloques[];
+    private Bloque bloques[];
 
     public Barra(double w, double h, int x, int y) {
         this.barraImg = new Texture("tabla.png");

@@ -119,8 +119,8 @@ public class Juego extends Fragment {
             public void onClick(View v) {
 
                 if(fuerza.isChecked()){
-                    fi.setText(String.valueOf(juego.torqueIzquierdo));
-                    fd.setText(String.valueOf(juego.torqueDerecho));
+                    fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
+                    fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
                 }
                 else{
 
