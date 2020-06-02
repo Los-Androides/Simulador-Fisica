@@ -31,6 +31,7 @@ public class Juego extends Fragment {
     private static final int NINGUNO = 3;
     public int mRadioButtonChoice = NINGUNO;
 
+    VistaJuego libgdxFragment;
 
     public Juego() {
 
@@ -46,10 +47,8 @@ public class Juego extends Fragment {
         return fragment;
     }
 
-
     interface JuegoListener{
-        void show(int choice);
-        void onButtonClick(String option);
+        VistaJuego getJuego();
     }
 
     //imagenes base
@@ -73,6 +72,9 @@ public class Juego extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        libgdxFragment = mListener.getJuego();
+
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
 
@@ -186,18 +188,14 @@ public class Juego extends Fragment {
                         //Agrega método que dibuje la MARCA
                         Log.d("myTag", "Marca");
                         mRadioButtonChoice = MARCA;
-                        mListener.show(MARCA);
-//                        barra.setVisibility(View.VISIBLE);
-//                        regla.setVisibility(View.GONE);
+//                        mListener.show(MARCA);
                         break;
 
                     case REGLA:
                         //Agrega método que dibuje la regla
 
                         mRadioButtonChoice = REGLA;
-                        mListener.show(REGLA);
-//                        regla.setVisibility(View.VISIBLE);
-//                        barra.setVisibility(View.GONE);
+//                        mListener.show(REGLA);
                         break;
 
                 }

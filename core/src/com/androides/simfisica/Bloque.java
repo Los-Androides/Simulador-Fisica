@@ -16,10 +16,9 @@ public class Bloque {
     private double peso;
     private int tipo;
 
-    public Bloque(double w, double h, double p, int num) {
+    public Bloque(double w, double h, int num) {
         this.width = w;
         this.height = h;
-        this.peso = p;
 
         this.tipo = num;
 
@@ -28,15 +27,19 @@ public class Bloque {
         switch (num) {
             case 1:
                 path = "kg5.png";
+                this.peso = 5;
                 break;
             case 2:
                 path = "kg10.png";
+                this.peso = 10;
                 break;
             case 3:
                 path = "kg15.png";
+                this.peso = 15;
                 break;
             case 4:
                 path = "kg20.png";
+                this.peso = 20;
                 break;
         }
 

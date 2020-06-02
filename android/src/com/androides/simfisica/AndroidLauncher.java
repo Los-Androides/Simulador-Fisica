@@ -84,19 +84,24 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.commit();
     }
 
+//    @Override
+//    public void show(int choice) {
+//        switch (choice) {
+//            case 1:
+//                libgdxFragment.getJuego().mostrarRegla();
+//                break;
+//            case 2:
+//                libgdxFragment.getJuego().mostrarMarcas();
+//                break;
+//            case 3:
+//                libgdxFragment.getJuego().mostrarNiguno();
+//                break;
+//        }
+//    }
+
     @Override
-    public void show(int choice) {
-        switch (choice) {
-            case 1:
-                libgdxFragment.getJuego().mostrarRegla();
-                break;
-            case 2:
-                libgdxFragment.getJuego().mostrarMarcas();
-                break;
-            case 3:
-                libgdxFragment.getJuego().mostrarNiguno();
-                break;
-        }
+    public VistaJuego getJuego() {
+        return libgdxFragment;
     }
 
     @Override

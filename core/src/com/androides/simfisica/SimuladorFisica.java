@@ -26,12 +26,12 @@ public class SimuladorFisica extends ApplicationAdapter {
 	boolean calcularTorque;
 	boolean aceleracionNegativa;
 
-	private Bloque crearBloque(int peso, int tipo) {
+	private Bloque crearBloque(int tipo) {
 		double wb = (barra.getWidth() / 2) * .9f;
 
 		double w = wb / 8;
 		double h = screenHeight * .03f;
-		return new Bloque(w, h, peso, tipo);
+		return new Bloque(w, h, tipo);
 	}
 
 	public void mostrarRegla() {
@@ -77,17 +77,6 @@ public class SimuladorFisica extends ApplicationAdapter {
 //		System.out.println(barra.getWidth());
 //		System.out.println((barra.getWidth() / 16));
 //		System.out.println(height);
-
-//        for (int i = 0; i < 16; i++) {
-//        	double wb = (barra.getWidth() / 2) * .9f;
-//
-//			double w = wb / 8;
-//            double h = screenHeight * .03f;
-//            Bloque bloque = new Bloque(w, h,5, (i % 4) + 1);
-//            barra.addBloque(bloque, i);
-//        }
-
-        barra.addBloque(crearBloque(5, 2), 7);
 
         torqueDerecho = 0;
         torqueIzquierdo = 0;

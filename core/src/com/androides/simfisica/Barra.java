@@ -114,6 +114,14 @@ public class Barra {
         return false;
     }
 
+    public boolean quitarBloque(int pos) {
+        if (bloques[pos] != null) {
+            bloques[pos] = null;
+            return true;
+        }
+        return false;
+    }
+
     private void dibujarMarcas(SpriteBatch batch) {
         double wb = (width / 2) * .9f;
         double w = wb / 8;
@@ -240,6 +248,10 @@ public class Barra {
                     0, 0,
                     barraImg.getWidth(), barraImg.getHeight(),
                     false, false);
+        }
+
+        if (showNivel) {
+
         }
 
         for (int i = 0;  i < bloques.length; i++) {
