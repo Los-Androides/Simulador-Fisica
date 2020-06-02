@@ -31,6 +31,7 @@ public class Juego extends Fragment {
     private static final int NINGUNO = 3;
     public int mRadioButtonChoice = NINGUNO;
 
+    SimuladorFisica juego;
 
     public Juego() {
 
@@ -46,10 +47,8 @@ public class Juego extends Fragment {
         return fragment;
     }
 
-
     interface JuegoListener{
-        void show(int choice);
-        void onButtonClick(String option);
+        SimuladorFisica getJuego();
     }
 
     //imagenes base
@@ -73,6 +72,9 @@ public class Juego extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        juego = mListener.getJuego();
+
         // Inflate the pantalla_juego for this fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
 
@@ -82,48 +84,28 @@ public class Juego extends Fragment {
         fuerza = rootView.findViewById(R.id.checkbox_fuerzaObj);
         masa = rootView.findViewById(R.id.checkbox_valorMasa);
         nivel = rootView.findViewById(R.id.checkbox_nivel);
-        //obtencio de las imagenes de las barras
-       // barra = rootView.findViewById(R.id.Barra);
-       // regla = rootView.findViewById(R.id.Regla);
-        //textos de los pesos
+
         tkg5 = rootView.findViewById(R.id.tkg5);
         tkg10 = rootView.findViewById(R.id.tkg10);
         tkg15 = rootView.findViewById(R.id.tkg15);
         tkg20 = rootView.findViewById(R.id.tkg20);
-        //imagenes de los pesos
-      //  kg5 = rootView.findViewById(R.id.kg5);
-       // kg10 = rootView.findViewById(R.id.kg10);
-       // kg15 = rootView.findViewById(R.id.kg15);
-       // kg20 = rootView.findViewById(R.id.kg20);
-        //listener para el drag and drop
-//        kg5.setOnLongClickListener(longClickListener);
-//        kg10.setOnLongClickListener(longClickListener);
-//        kg15.setOnLongClickListener(longClickListener);
-//        kg20.setOnLongClickListener(longClickListener);
-
-//        Im2.setOnDragListener(dragListener);
-        //arreglo de imagenes
 
         //imagen sobre la barra
-        final RadioGroup radioGroup= rootView.findViewById(R.id.radio_group);
+        final RadioGroup radioGroup = rootView.findViewById(R.id.radio_group);
 
         final CheckBox checkFuerzaObj = rootView.findViewById(R.id.checkbox_fuerzaObj);
         final CheckBox checkMasa = rootView.findViewById(R.id.checkbox_valorMasa);
         final CheckBox checkNivel = rootView.findViewById(R.id.checkbox_nivel);
 
-
         masa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(masa.isChecked()){
-
                     tkg5.setVisibility(View.VISIBLE);
                     tkg10.setVisibility(View.VISIBLE);
                     tkg15.setVisibility(View.VISIBLE);
                     tkg20.setVisibility(View.VISIBLE);
-
-                }
-                else{
+                } else{
                     tkg5.setVisibility(View.INVISIBLE);
                     tkg10.setVisibility(View.INVISIBLE);
                     tkg15.setVisibility(View.INVISIBLE);
@@ -186,18 +168,16 @@ public class Juego extends Fragment {
                         //Agrega método que dibuje la MARCA
                         Log.d("myTag", "Marca");
                         mRadioButtonChoice = MARCA;
-                        mListener.show(MARCA);
-//                        barra.setVisibility(View.VISIBLE);
-//                        regla.setVisibility(View.GONE);
+                        juego.mostrarMarcas();
+//                        mListener.show(MARCA);
                         break;
 
                     case REGLA:
                         //Agrega método que dibuje la regla
 
                         mRadioButtonChoice = REGLA;
-                        mListener.show(REGLA);
-//                        regla.setVisibility(View.VISIBLE);
-//                        barra.setVisibility(View.GONE);
+                        juego.mostrarRegla();
+//                        mListener.show(REGLA);
                         break;
 
                 }
