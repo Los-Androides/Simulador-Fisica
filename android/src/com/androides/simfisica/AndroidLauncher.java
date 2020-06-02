@@ -100,8 +100,8 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 //    }
 
     @Override
-    public VistaJuego getJuego() {
-        return libgdxFragment;
+    public SimuladorFisica getJuego() {
+        return libgdxFragment.getJuego();
     }
 
     @Override
