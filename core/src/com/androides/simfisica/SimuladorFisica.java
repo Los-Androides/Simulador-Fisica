@@ -186,6 +186,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 				// val es para guardar la posicion en la cual se debe dibujar el cuadro
 				// half es la mitad del ancho del cuadro, esto para centrarlo
+				// extra sirve para poder dibujar los bloques del lado derecho a partir del extremo derecho de la barra
 				x = (int) (barra.getPosX() + half + val + extra);
 
 				originX -= x - barra.getPosX();
