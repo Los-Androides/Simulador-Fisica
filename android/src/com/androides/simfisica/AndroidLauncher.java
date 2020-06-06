@@ -43,11 +43,25 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         displayMenuFragment();
     }
 
+    // **************************************************
+    // Public methods
+    // **************************************************
+
+    /**
+     * Hace el cambio de hacia el fragmento Menu.
+     *
+     *
+     */
     public void displayMenuFragment(){
 	    MenuFragment menuFragment = new MenuFragment();
 	    getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, menuFragment).commit();
     }
 
+    /**
+     * Al seleccionar el boton llama a la funcion que despliega el quiz o juego.
+     *
+     *
+     */
     @Override
     public void onButtonClick(String option) {
         if (option == "Juego"){
@@ -57,6 +71,11 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
             displayQuizFragment();
         }
     }
+    /**
+     * Hace el cambio de hacia el fragmento quiz.
+     *
+     *
+     */
     public void displayJuego(){
 
         // Create libgdx fragment
@@ -74,7 +93,11 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
+    /**
+     * Hace el cambio de hacia el fragmento quiz.
+     *
+     *
+     */
     public void displayQuizFragment(){
         QuizFragment questionFragment = new QuizFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -83,21 +106,12 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.commit();
     }
 
-//    @Override
-//    public void show(int choice) {
-//        switch (choice) {
-//            case 1:
-//                libgdxFragment.getJuego().mostrarRegla();
-//                break;
-//            case 2:
-//                libgdxFragment.getJuego().mostrarMarcas();
-//                break;
-//            case 3:
-//                libgdxFragment.getJuego().mostrarNiguno();
-//                break;
-//        }
-//    }
 
+    /**
+     * Crea el objeto simulador y lo regresa en un fragmento libgdx.
+     *
+     *
+     */
     @Override
     public SimuladorFisica getJuego() {
         return libgdxFragment.getJuego();
