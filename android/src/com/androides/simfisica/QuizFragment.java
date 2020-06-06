@@ -1,29 +1,24 @@
 package com.androides.simfisica;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import static android.icu.lang.UCharacter.NumericType.NONE;
-
 public class QuizFragment extends Fragment {
+    // **************************************************
+    // Campos
+    // **************************************************
     private static Preguntas Preguntas;
     private int numPregunta = 0;
     private int score = 0;
-    public int mRadioButtonChoice;
     private TextView textView;
     private Button check;
     private Button reset;
@@ -31,21 +26,26 @@ public class QuizFragment extends Fragment {
     private Button mostrar;
     private int tries = 0;
     private TextView puntuacion;
-    private TextView nivel;
     private TextView reto;
     private int numPreguntas;
     private EditText respuesta;
     private ImageView imagen;
 
 
-
+    // **************************************************
+    // Constructor
+    // **************************************************
     public QuizFragment() {
-        // Required empty public constructor
         Preguntas = new Preguntas();
         numPreguntas = Preguntas.getSize();
     }
-
-
+    // **************************************************
+    // Metodos Publicos
+    // **************************************************
+    /**
+     *  Crea la vista del archivo xml activity_quiz en el fragmento contenedor.
+     *  @return regresa la vista actual.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -124,6 +124,13 @@ public class QuizFragment extends Fragment {
         return rootView;
     }
 
+    // **************************************************
+    // Metodos Privados
+    // **************************************************
+    /**
+     * Cambia la Imagen del image View.
+     */
+
     private void cambiaImagen(){
         switch (numPregunta){
             case 0:
@@ -151,6 +158,9 @@ public class QuizFragment extends Fragment {
                 break;
         }
     }
+    /**
+     * Cambia la Imagen de casos particulares para mostrar otra imagen.
+     */
 
     private void auxImage(){
         switch (numPregunta){
@@ -171,6 +181,11 @@ public class QuizFragment extends Fragment {
         }
     }
 
+    /**
+     * Actualiza la vista con el contenido de la nueva pregunta.
+     * @param rootView Vista actual.
+     */
+
     private void sigPregunta(View rootView){
         numPregunta++;
         textView.setText(Preguntas.getPregunta(numPregunta));
@@ -182,6 +197,11 @@ public class QuizFragment extends Fragment {
         cambiaImagen();
         respuesta.setText("");
     }
+
+    /**
+     * Regresa el quiz a su estado original
+     * @param  rootView result of the current value added to the default value.
+     */
 
     private void resetQuiz(View rootView){
         numPregunta = 0;

@@ -10,8 +10,14 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 public class MenuFragment extends Fragment {
+    // **************************************************
+    // Campos
+    // **************************************************
     OnFragmentInteractionListener mListener;
 
+    // **************************************************
+    // Constructores
+    // **************************************************
 
     public static MenuFragment newInstance(){
         MenuFragment fragment = new MenuFragment();
@@ -23,9 +29,20 @@ public class MenuFragment extends Fragment {
     }
 
     public MenuFragment() {
-        // Required empty public constructor
+        // Constructor publico vacio requerido.
     }
 
+    // **************************************************
+    // Metodos Publicos
+    // **************************************************
+
+    /**
+     *  Crea la vista del archivo xml framgent_menu1 en el fragmento contenedor.
+     *
+     *
+     *
+     *  @return regresa la vista actual.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -52,6 +69,10 @@ public class MenuFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * Implementacion del fragmentListener en el contexto actual.
+     *
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
