@@ -1,11 +1,7 @@
 package com.androides.simfisica;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Bloque {
     Texture bloqueImg;
@@ -161,7 +157,9 @@ public class Bloque {
         }
     }
 
-    // libera la memoria de la imagen
+    /**
+     * libera la memoria de la imagen
+     */
     public void dispose() {
         this.bloqueImg.dispose();
     }

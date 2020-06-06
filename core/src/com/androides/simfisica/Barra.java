@@ -1,10 +1,8 @@
 package com.androides.simfisica;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class Barra {
     private int posX, posY;
@@ -16,7 +14,6 @@ public class Barra {
 
     private boolean showRegla;
     private boolean showMarcas;
-    private boolean showNivel;
 
     private double width;
     private double height;
@@ -25,7 +22,15 @@ public class Barra {
 
     private Bloque bloques[];
 
+    /**
+     * constructor de Barra
+     * @param w ancho de la barra
+     * @param h altura de la barra
+     * @param x posicion de la barra en el eje x
+     * @param y posicion de la barra en el eje y
+     */
     public Barra(double w, double h, int x, int y) {
+        // carga todas las imagenes necesarias para la barra
         this.barraImg = new Texture("tabla.png");
         this.reglaImg = new Texture("regla.png");
         this.baseImg = new Texture("base.png");
@@ -33,13 +38,13 @@ public class Barra {
 
         this.bloques = new Bloque[16];
 
+        // inicializa todos los bloques a nulos
         for (int i = 0; i < 16; i++) {
             bloques[i] = null;
         }
 
         this.showRegla = false;
         this.showMarcas = false;
-        this.showNivel = false;
 
         this.width = w;
         this.height = h;
@@ -67,7 +72,6 @@ public class Barra {
 
     public boolean isShowRegla() { return showRegla;}
     public boolean isShowMarcas () { return showMarcas;}
-    public boolean isShowNivel () { return showNivel;}
 
     // setters
 
@@ -83,10 +87,13 @@ public class Barra {
 
     public void setShowRegla(boolean val) { showRegla = val; }
     public void setShowMarcas(boolean val) { showMarcas = val; }
-    public void setShowNivel(boolean val) { showNivel = val; }
 
     // methods
 
+    /**
+     * calcula el torque del lado izquierdo de la barra
+     * @return double con el valor del torque izquierdo
+     */
     public double calcularTorqueIzquierdo() {
 
         double torque = 0;
@@ -99,6 +106,10 @@ public class Barra {
         return torque;
     }
 
+    /**
+     * calcula el torque del lado derecho de la barra
+     * @return double con el valor del torque derecho
+     */
     public double calcularTorqueDerecho() {
         double torque = 0;
         for (int i = 0;  i < (bloques.length / 2); i++) {
@@ -111,6 +122,12 @@ public class Barra {
         return torque;
     }
 
+    /**
+     * agrega un nuevo bloque a la barra
+     * @param bloque    el bloque que se quiere agregar
+     * @param pos       posicion en la barra a la cual se quiere agregar el bloque
+     * @return          boolean que especifica si se pudo agregar el bloque
+     */
     public boolean addBloque(Bloque bloque, int pos) {
         if (this.bloques[pos] == null) {
             this.bloques[pos] = bloque;
@@ -119,6 +136,11 @@ public class Barra {
         return false;
     }
 
+    /**
+     * quita un bloque de la barra
+     * @param pos   posición de la cual borra el bloque
+     * @return      boolean que especifica si se pudo quitar el bloque
+     */
     public boolean quitarBloque(int pos) {
         if (this.bloques[pos] != null) {
             this.bloques[pos] = null;
@@ -127,6 +149,10 @@ public class Barra {
         return false;
     }
 
+    /**
+     * dibuja las marcas de la barra
+     * @param batch Spritebatch para poder dibujar las marcas
+     */
     private void dibujarMarcas(SpriteBatch batch) {
         double wb = (this.width / 2) * .9f;
         double w = wb / 8;
@@ -134,18 +160,22 @@ public class Barra {
         double marcaWidth = Gdx.graphics.getWidth() * .025f;
         double marcaHeight = Gdx.graphics.getHeight() * .1f;
 
-        double originX = (width / 2);
+        double originX;
         double originY = (this.height / 2);
 
         int x;
         int y = (int) (this.posY - marcaHeight);
 
-        double val = 0;
-        double half = (marcaWidth / 2);
+        double val;
+        double half;
         double extra;
 
         for (int i = 0; i < 16; i++) {
+            // checa si la marca se encuentra del lado derecho o del izquierdo
+            // si está del lado izquierdo, calculara su posición a partir del extremo izquierdo de la barra
+            // si está del lado derecho, calculara su posición a partir del extremo derecho de la barra
             originX = (this.width / 2);
+            half = (marcaWidth / 2);
             if (i < 8) {
                 val = ((i + 1) * (int)(w));
                 extra = 0;
@@ -153,12 +183,14 @@ public class Barra {
             } else {
                 int posicion = (16 - i);
                 val = -(posicion * w);
-//                half *= -1;
+                half *= -1;
                 extra = this.width;
             }
 
-            x = (int) (this.posX + val - half + extra);
-//            x = (int) (posX + half + val + extra);
+            // val es para guardar la posicion en la cual se debe dibujar la marca
+            // half es la mitad del ancho de la marca, esto para centrarla
+            // extra sirve para poder dibujar las marcas del lado derecho a partir del extremo derecho de la barra
+            x = (int) (this.posX + val + half + extra);
 
             originX -= x - this.posX;
 
@@ -172,45 +204,12 @@ public class Barra {
                     this.marcasImg.getWidth(), this.marcasImg.getHeight(),
                     false, false);
         }
-
-//        double percentage = .75f;
-//        double val = 0;
-//
-//        double offset = 0;
-//        double offHelp = 0;
-//        offHelp = (1f - percentage) / 2;
-//        offset = ((offHelp * width));
-//
-//        double extra;
-//        double half = (width / 2);
-//        double w = this.width * percentage;
-//
-//        if (pos < 8) {
-//            val = ((pos) * (int)(width));
-//            extra = 0;
-//
-//        } else {
-//            int posicion = (16 - pos);
-//            val = -(posicion * width);
-//            half *= -1;
-//            extra = barra.getWidth();
-//        }
-//
-//        x = (int) (barra.getPosX() + half + val + offset + extra);
-//
-//        originX -= x - barra.getPosX();
-//
-//        batch.draw(bloqueImg,
-//                x, y,
-//                (int) originX, (int) originY,
-//                (int) w, (int) (height * tipo),
-//                1, 1,
-//                (float) barra.rotation,
-//                0, 0,
-//                bloqueImg.getWidth(), bloqueImg.getHeight(),
-//                false, false);
     }
 
+    /**
+     * dibuja la barra
+     * @param batch Spritebatch para poder dibujar todas las imagenes de la barra
+     */
     public void render(SpriteBatch batch) {
 
         int originX = ((int) this.width / 2);
@@ -224,8 +223,8 @@ public class Barra {
 
         batch.draw(this.baseImg, (int) (this.posX + originX - (widthBase / 2)), (int) (this.posY + originY - (widthBase * .9f)), (int) (widthBase ), (int) (heightBase));
 
+        // checa que se debe dibujar
         if (this.showRegla) {
-
             double ratio = 4.5f;
             double changeInHeight = (this.height * (ratio - 1));
 
@@ -253,14 +252,7 @@ public class Barra {
                     false, false);
         }
 
-//        System.out.println(posX);
-
-//        rotation--;
-
-        if (this.showNivel) {
-
-        }
-
+        // dibuja todos los bloques en la barra
         for (int i = 0;  i < this.bloques.length; i++) {
             if (this.bloques[i] != null) {
                 this.bloques[i].render(batch, this, i);
@@ -268,6 +260,9 @@ public class Barra {
         }
     }
 
+    /**
+     * libera la memoria de la imagen
+     */
     public void dispose() {
         this.barraImg.dispose();
         this.reglaImg.dispose();

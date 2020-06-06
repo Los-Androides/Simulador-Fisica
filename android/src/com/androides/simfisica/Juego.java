@@ -22,7 +22,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import androidx.fragment.app.Fragment;
 
-public class Juego extends Fragment implements SimuladorFisica.SimuladorFisicaListener{
+public class Juego extends Fragment {
 
     JuegoListener mListener;
     private static final String OPCION_MOSTRAR = "opcion_mostrar";
@@ -202,12 +202,6 @@ public class Juego extends Fragment implements SimuladorFisica.SimuladorFisicaLi
             return true;
         }
     };
-
-    @Override
-    public void actualizarTorques() {
-        fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
-        fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
-    }
 
     @Override
     public void onAttach(Context context) {

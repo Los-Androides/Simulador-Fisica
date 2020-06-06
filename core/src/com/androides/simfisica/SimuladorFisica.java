@@ -8,12 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SimuladorFisica extends ApplicationAdapter {
 
-	public interface SimuladorFisicaListener {
-		void actualizarTorques();
-	}
-
-	private SimuladorFisicaListener mListener;
-
 	private SpriteBatch batch;
 	private Texture background;
 	private Texture cuadroBlanco;
