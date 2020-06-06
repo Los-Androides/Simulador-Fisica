@@ -2,14 +2,9 @@ package com.androides.simfisica;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 
 public class SimuladorFisica extends ApplicationAdapter {
 
@@ -24,7 +19,6 @@ public class SimuladorFisica extends ApplicationAdapter {
 	private Texture cuadroBlanco;
 	private Texture bloquesImg[];
 	private Barra barra;
-//	ShapeRenderer sr;
 
 	private int screenWidth, screenHeight;
 
@@ -45,28 +39,51 @@ public class SimuladorFisica extends ApplicationAdapter {
 	private double widthBloque;
 	private double heightBloque;
 
+    /**
+     * crear un nuevo bloque bloque dentro del simulador
+     * @param tipo      el tipo de bloque que se quiere crear
+     * @param x         posicion en el eje x
+     * @param y         posicion en el eje y
+     * @param enBarra   bandera con la que puedes saber si el bloque se encuentra en la barra
+     * @return
+     */
 	private Bloque crearBloque(int tipo, int x, int y, boolean enBarra) {
+	    // la barra tiene 16 divisiones
+        // primero se calcula la mitad de cada barra ya que en medio tiene un espacio que no es del mismo tamaño que de las otras divisiones
+        // luego calcula el ancho de cada división
 		double wb = (barra.getWidth() / 2) * .9f;
 		double w = wb / 8;
 		double h = screenHeight * .03f;
 		return new Bloque(w, h, tipo, x, y, enBarra);
 	}
 
+    /**
+     *  muestra la imagen de la barra
+     */
 	public void mostrarRegla() {
 		barra.setShowRegla(true);
 		barra.setShowMarcas(false);
 	}
 
+    /**
+     * muestra la imagen de las marcas
+     */
 	public void mostrarMarcas() {
 		barra.setShowMarcas(true);
 		barra.setShowRegla(false);
 	}
 
+    /**
+     * muestra la imagen normal de la barra
+     */
 	public void mostrarNiguno() {
 		barra.setShowRegla(false);
 		barra.setShowMarcas(false);
 	}
 
+    /**
+     * borra todos los bloques que estén en la barra
+     */
 	public void borrarBloques() {
 		for (int i = 0; i < 16; i++) {
 			barra.quitarBloque(i);
@@ -74,23 +91,43 @@ public class SimuladorFisica extends ApplicationAdapter {
 		calcularTorque();
 	}
 
+    /**
+     * determinar si muestra las marcas para poder ver si la barra está balanceada
+     * @param val   determina si se muestran las marcas o no
+     */
 	public void mostarNivel(boolean val) {
 	    barra.setShowNivel(val);
     }
 
+    /**
+     * regresa el valor del torque izquierdo de la barra
+     * @return valor del torque izquierdo de la barra
+     */
 	public double getBarraTorqueIzquierdo() {
 		return barra.calcularTorqueIzquierdo();
 	}
 
+    /**
+     * regresa el valor del torque derecho de la barra
+     * @return valor del torque derecho de la barra
+     */
 	public double getBarraTorqueDerecho() {
 		return barra.calcularTorqueDerecho();
 	}
 
+    /**
+     * agrega un bloque a la barra
+     * @param pos   posicion del nuevo bloque en la barra
+     * @param tipo  tipo de bloque
+     */
 	private void agregarBloqueBarra(int pos, int tipo) {
 		barra.addBloque(crearBloque(tipo, 0, 0, true), pos);
 		calcularTorque = true;
 	}
 
+    /**
+     * checa si, cuando se está arrastrando un bloque para agregarlo a la barra, se encuentra en alguna posición válida para agregarlo a la barra
+     */
 	private void checarSiSeAgregaBloque() {
 		double espacio = barra.getWidth() / 16;
 
@@ -99,23 +136,28 @@ public class SimuladorFisica extends ApplicationAdapter {
 				agregarBloqueBarra(i, tipoBloqueDrag);
 			}
 		}
-
 	}
 
+    /**
+     * dibuja un bloque si es que se está arrastrando para agregarlo a la barra
+     */
 	public void dibujarBloque() {
+	    // consigue la posicion de donde se esté presionando en la pantalla
+        // en la posicion y, el input considera y = 0 en la esquina superior izquierda,
+        // mientras que para dibujar se considera la esquina superior derecha, por eso es la resta
 		bloqueX = Gdx.input.getX();
 		bloqueY  = screenHeight - Gdx.input.getY();
+
+		// con el tipo del bloque consigue la imagen que se debe dibujar
 		int pos = tipoBloqueDrag - 1;
-		double w = widthBloque;//bloques[pos].getWidth();
-		double h = heightBloque;//bloques[pos].getHeight();
+		double w = widthBloque;
+		double h = heightBloque;
 		batch.draw(bloquesImg[pos], (int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)), (int) (w), (int) (h));
 
+		// aquí se dibuja un cuadro blanco para señalarle al usuario donde se colocaría el bloque si deja de presionar la pantalla
 		double espacio = barra.getWidth() / 16;
 		for (int i = 0; i < 16; i++) {
 			if (barra.getPosX() + (espacio * i) <= bloqueX && bloqueX < barra.getPosX() + (espacio * (i + 1))) {
-//				batch.draw(cuadroBlanco,
-//						(int) (bloqueX - (w / 2)), (int) (bloqueY - (h - 2)),
-//						(int) (w), (int) (h));
 
 				double wb = (barra.getWidth() / 2) * .9f;
 				double cuadroWidth = wb / 8;
@@ -129,10 +171,12 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 				double val, extra, half = (cuadroWidth / 2);
 
-				if (pos < 8) {
+				// checa si el bloque se colocaría del lado derecho o del izquierdo
+				// si está del lado izquierdo, calculara su posición a partir del extremo izquierdo de la barra
+				// si está del lado derecho, calculara su posición a partir del extremo derecho de la barra
+				if (i < 8) {
 					val = ((i) * (int)(cuadroWidth));
 					extra = 0;
-
 				} else {
 					int posicion = (16 - i);
 					val = -(posicion * cuadroWidth);
@@ -140,6 +184,8 @@ public class SimuladorFisica extends ApplicationAdapter {
 					extra = barra.getWidth();
 				}
 
+				// val es para guardar la posicion en la cual se debe dibujar el cuadro
+				// half es la mitad del ancho del cuadro, esto para centrarlo
 				x = (int) (barra.getPosX() + half + val + extra);
 
 				originX -= x - barra.getPosX();
@@ -157,9 +203,16 @@ public class SimuladorFisica extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * se encarga de lo relacionado con arrastar los bloques
+	 */
 	private void dragAndDrop() {
 
+		// checa si ya hay un bloque arrastrandose
 		if (bloqueDrag) {
+			// checa si se sigue arrastrando
+			// si sí, se dibuja
+			// si no, se actualiza que no se esta arrastrando y checa si se debería agregar un nuevo bloque
 			if (Gdx.input.isTouched()) {
 				dibujarBloque();
 			} else {
@@ -167,10 +220,13 @@ public class SimuladorFisica extends ApplicationAdapter {
 				checarSiSeAgregaBloque();
 			}
 		} else {
+			// checa si la pantalla está siendo presionada
+			// si sí, checa si está siendo presionada sobre algún bloque
 			if (Gdx.input.isTouched()) {
 
 				int x = Gdx.input.getX();
 				int y  = screenHeight - Gdx.input.getY();
+
 				for (int i = 0; i < 4; i++) {
 					if (bloques[i].checarSiEstaSeleccionado(x, y)) {
 						bloqueDrag = true;
@@ -184,6 +240,9 @@ public class SimuladorFisica extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * calcula el torque de la barra, que tanto tiene que rotar y la velocidad a la cual tiene que rotar
+	 */
 	private void calcularTorque() {
 		torqueIzquierdo = barra.calcularTorqueIzquierdo();
 		torqueDerecho = barra.calcularTorqueDerecho();
@@ -198,18 +257,11 @@ public class SimuladorFisica extends ApplicationAdapter {
 
 		calcularTorque = false;
 		aceleracionNegativa = (aceleracion > 0) ? false : true;
-
-		System.out.println("Valores ----------------------------------------");
-		System.out.println("Izq " + torqueIzquierdo);
-		System.out.println("Der " + torqueDerecho);
-		System.out.println("diff " + diff);
-		System.out.println("rot " + rotacion);
-		System.out.println("ang " + angulo);
-		System.out.println("ace " + aceleracion);
-
-//		mListener.actualizarTorques();
 	}
 
+	/**
+	 * actualiza la rotación de la barra
+	 */
 	private void actualizarRotacion() {
 		rotacion += aceleracion * Gdx.graphics.getDeltaTime();
 
@@ -223,6 +275,7 @@ public class SimuladorFisica extends ApplicationAdapter {
 			}
 		}
 
+		// checa si la barra ya llegó a su máxima rotación, que es cuando topa con el piso
 		if (rotacion > 22) { // limite izquierd
 			rotacion = 22;
 			aceleracion = 0;
@@ -234,8 +287,12 @@ public class SimuladorFisica extends ApplicationAdapter {
 		barra.setRotation(rotacion);
 	}
 
+	/**
+	 * tipo constructor de LibGDX
+	 */
 	@Override
 	public void create () {
+		// se crea un SpriteBatch para poder dibujar y se cargan todas las imagenes
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
 		cuadroBlanco = new Texture("cuadro_blanco.png");
@@ -245,38 +302,37 @@ public class SimuladorFisica extends ApplicationAdapter {
 		bloquesImg[1] = new Texture("kg10.png");
 		bloquesImg[2] = new Texture("kg15.png");
 		bloquesImg[3] = new Texture("kg20.png");
-//		sr = new ShapeRenderer();
 
+		// se consigué el ancho y alto de la pantalla
 		screenWidth = Gdx.graphics.getWidth();
 		screenHeight = Gdx.graphics.getHeight();
 
+		// se calcula el ancho y alto de la barra, su posición en la pantalla y se crea
 		double width = screenWidth * .70f;
 		double height = screenHeight * .05f;
-
 		double x = ((screenWidth - width) / 2) - 180;
 		double y = (screenHeight * .365f) ;
-
 		barra = new Barra(width, height, (int) (x), (int) (y));
 
+		// se crean 4 bloques, uno de cada tipo, para que el usuario pueda seleccionarlos y agregarlos a la barra
 		bloques = new Bloque[4];
-
 		for (int i = 0; i < 4; i++) {
 		    double w = screenWidth * .13f;
 		    double h = screenHeight * .23f;
-
 			bloques[i] = crearBloque((i + 1), (int) (w * (i + 1)), (int) (screenHeight - h), false);
 		}
 
+		// valores relacionados con la rotación de la barra
         torqueDerecho = 0;
         torqueIzquierdo = 0;
         diff = 0;
         rotacion = 0;
         aceleracion = 0;
         angulo = 0;
-
         calcularTorque = true;
         aceleracionNegativa = false;
 
+        // valores relacionados con el arrastrar los bloques
         bloqueDrag = false;
         tipoBloqueDrag = 0;
         bloqueX = 0;
@@ -285,15 +341,20 @@ public class SimuladorFisica extends ApplicationAdapter {
 		heightBloque = 0;
 	}
 
+	/**
+	 * se encarga de la lógica dle simulador y de dibujar las cosas en pantalla
+	 */
 	@Override
 	public void render () {
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
+        // inicializa el Spritebatch para poder empezar a dibujar
 		batch.begin();
 
+		// dibuja fondo
 		batch.draw(background, 0, 0, screenWidth, screenHeight);
 
+		// dibuja la barra y todos sus bloques
 		barra.render(batch);
 
 		dragAndDrop();
@@ -306,15 +367,18 @@ public class SimuladorFisica extends ApplicationAdapter {
         	actualizarRotacion();
 		}
 
-
         for (int i = 0; i < 4; i++) {
         	bloques[i].render(batch, null,0);
 		}
 
+        // termina el Spritebatch
 		batch.end();
 
 	}
 
+	/**
+	 * se encarga de liberar memoria gráfica
+	 */
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -325,73 +389,4 @@ public class SimuladorFisica extends ApplicationAdapter {
 			bloquesImg[i].dispose();
 		}
 	}
-
-//	private OrthographicCamera cam;
-//	private ShapeRenderer sr;
-//	private Vector3 pos;
-//
-//	public void create() {
-//		sr = new ShapeRenderer();
-//		cam = new OrthographicCamera();
-//		cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-//
-//		pos = new Vector3(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, 0);
-//	}
-//
-//	public void render() {
-//
-//		// Logic
-//
-//		cam.update();
-//
-//		if (Gdx.input.isTouched()) {
-//			pos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-//			cam.unproject(pos);
-//		}
-//
-//		// Drawing
-//
-//		Gdx.gl.glClearColor(1, 1, 1, 1);
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//
-//		sr.begin(ShapeRenderer.ShapeType.Filled);
-//		sr.setColor(Color.GREEN);
-//		sr.circle(pos.x, pos.y, 64);
-//		sr.end();
-//
-//	}
-//
-//	public void dispose() {
-//		sr.dispose();
-//	}
-
-//    int fps = 50;
-//    // time for each tick in nano segs
-//    double timeTick = 1000000000 / fps;
-//    // initializing delta
-//    double delta = 0;
-//    // define now to use inside the loop
-//    long now;
-//    // initializing last time to the computer time in nanosecs
-//    long lastTime = System.nanoTime();
-//        while (running) {
-//        // setting the time now to the actual time
-//        now = System.nanoTime();
-//        // acumulating to delta the difference between times in timeTick units
-//        delta += (now - lastTime) / timeTick;
-//        // updating the last time
-//        lastTime = now;
-//
-//        // if delta is positive we tick the game
-//        if (delta >= 1) {
-//            try {
-//                tick();
-//                render();
-//                delta--;
-//            } catch (SQLException ex) {
-//                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-
 }
