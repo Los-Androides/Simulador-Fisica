@@ -31,6 +31,7 @@ public class Juego extends Fragment {
     private static final int NINGUNO = 3;
     public int mRadioButtonChoice = NINGUNO;
 
+    //trae a la clase juego una variable para poder aceder a Simulador fisica
     SimuladorFisica juego;
 
     public Juego() {
@@ -51,21 +52,17 @@ public class Juego extends Fragment {
         SimuladorFisica getJuego();
     }
 
-    //imagenes base
-//    ImageView barra;
-//    ImageView regla;
-    //imagenes de los objetos
-
-    ImageView kg5,kg10,kg15,kg20;
     //titulo de los objetos
     TextView tkg5,tkg10,tkg15,tkg20;
-    //distancia de los textView
-    TextView l2m,l15m,l1m,l05m;
-    TextView r2m,r15m,r1m,r05m;
+    //Checkbox de fuerza masa y nivel
     CheckBox fuerza,masa,nivel;
+    /*valores que tomaran la torca de la barra
+    @valor fi representa la torca del lado izquierdo
+    @valor fi representa la torca del lado izquierdo
+     */
     TextView fi,fd;
+    //botton que servira para quitar las barras del nivel
     Button limpia;
-
 
     @SuppressLint("CutPasteId")
     @Override
@@ -74,10 +71,12 @@ public class Juego extends Fragment {
 
         juego = mListener.getJuego();
 
-        // Inflate the pantalla_juego for this fragment
+        // infla la pantalla de juego en el fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
 
+        //asigna la variable limpia al boton
         limpia = rootView.findViewById(R.id.reset);
+        //asigna los valores a los textView
         fi = rootView.findViewById(R.id.fi);
         fd = rootView.findViewById(R.id.fd);
         //Checkbox
@@ -85,6 +84,7 @@ public class Juego extends Fragment {
         masa = rootView.findViewById(R.id.checkbox_valorMasa);
         nivel = rootView.findViewById(R.id.checkbox_nivel);
 
+        //asigna las variables de los titulos a los TextView
         tkg5 = rootView.findViewById(R.id.tkg5);
         tkg10 = rootView.findViewById(R.id.tkg10);
         tkg15 = rootView.findViewById(R.id.tkg15);
@@ -99,6 +99,7 @@ public class Juego extends Fragment {
 
         masa.setOnClickListener(new View.OnClickListener() {
             @Override
+            //permite la visualizacion de los titulos de los pesos
             public void onClick(View v) {
                 if(masa.isChecked()){
                     tkg5.setVisibility(View.VISIBLE);
@@ -114,6 +115,7 @@ public class Juego extends Fragment {
             }
         });
 
+        //funcion que permite ver y actualizar el torque
         fuerza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +135,8 @@ public class Juego extends Fragment {
 
             }
         });
+
+        /* funcion a futuro del nivel
         nivel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,10 +145,8 @@ public class Juego extends Fragment {
                     Log.d("myTag","Nivel");
                 }
             }
-        });
+        });*/
 
-
-        //Checas si hay una checkbox seleccionada
 
         //Checa si hay un RadioButton seleccionado
         if (getArguments().containsKey(OPCION_MOSTRAR)) {
@@ -182,8 +184,10 @@ public class Juego extends Fragment {
             }
         });
 
+        //funcion que borra los ladrillos de la barra
         rootView.findViewById(R.id.reset).setOnClickListener(new View.OnClickListener() {
             @Override
+            //manda llamar la funcion BorrarBloques del la variable juego que acessa a SimuladorFisica
             public void onClick(View v) {
                 juego.borrarBloques();
             }
@@ -192,16 +196,6 @@ public class Juego extends Fragment {
         return rootView;
     }
 
-    View.OnLongClickListener longClickListener = new View.OnLongClickListener(){
-
-        @Override
-        public boolean onLongClick(View v) {
-            ClipData data = ClipData.newPlainText("","");
-            View.DragShadowBuilder myShadowBuilder = new View.DragShadowBuilder(v);
-            v.startDrag(data,myShadowBuilder,v,0);
-            return true;
-        }
-    };
 
     @Override
     public void onAttach(Context context) {

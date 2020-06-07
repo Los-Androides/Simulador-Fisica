@@ -89,9 +89,9 @@ public class SimuladorFisica extends ApplicationAdapter {
      * determinar si muestra las marcas para poder ver si la barra está balanceada
      * @param val   determina si se muestran las marcas o no
      */
-	public void mostarNivel(boolean val) {
-	    barra.setShowNivel(val);
-    }
+	//public void mostarNivel(boolean val) {
+	//    barra.setShowNivel(val);
+    //}
 
     /**
      * regresa el valor del torque izquierdo de la barra
