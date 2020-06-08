@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Bloque {
-    Texture bloqueImg;
+    private Texture bloqueImg;
 
     private double width;
     private double height;

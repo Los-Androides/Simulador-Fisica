@@ -90,7 +90,7 @@ public class SimuladorFisica extends ApplicationAdapter {
      * @param val   determina si se muestran las marcas o no
      */
 	public void mostarNivel(boolean val) {
-	    barra.setShowNivel(val);
+	    //barra.setShowNivel(val);
     }
 
     /**
