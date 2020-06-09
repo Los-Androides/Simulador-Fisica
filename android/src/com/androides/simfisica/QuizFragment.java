@@ -30,6 +30,7 @@ public class QuizFragment extends Fragment {
     private int numPreguntas;
     private EditText respuesta;
     private ImageView imagen;
+    private TextView nivel;
 
 
     // **************************************************
@@ -67,6 +68,8 @@ public class QuizFragment extends Fragment {
         check = rootView.findViewById(R.id.checkAns);
         next.setEnabled(false);
         reset = rootView.findViewById(R.id.reset);
+        nivel = rootView.findViewById(R.id.Nivel);
+        nivel.setVisibility(View.INVISIBLE);
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
