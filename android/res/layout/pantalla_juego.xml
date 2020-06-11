@@ -203,13 +203,14 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/torca_izq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="122dp"
         android:text="Torca lado izquierdo"
+        android:visibility="invisible"
         android:textColor="#090101"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -222,12 +223,13 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="122dp"
         android:text="0"
+        android:visibility="invisible"
         android:textColor="#0C0101"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintStart_toEndOf="@+id/torca_izq"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/torca_der"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="92dp"
@@ -235,6 +237,7 @@
         android:layout_marginTop="122dp"
         android:text="Torca lado derecho"
         android:textColor="#0C0101"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/fi"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -247,7 +250,8 @@
         android:layout_marginTop="122dp"
         android:text="0"
         android:textColor="#120101"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/torca_der"
         app:layout_constraintTop_toTopOf="parent" />
 
 

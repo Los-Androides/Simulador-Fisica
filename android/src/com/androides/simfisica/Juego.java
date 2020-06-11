@@ -34,12 +34,7 @@ public class Juego extends Fragment {
     //trae a la clase juego una variable para poder aceder a Simulador fisica
     SimuladorFisica juego;
 
-    public Juego() {
-
-    }
-
-    Thread myThread;
-    Runnable myRunnable;
+    public Juego() {}
 
     public static Juego newInstance(int choice) {
 
@@ -55,15 +50,19 @@ public class Juego extends Fragment {
         SimuladorFisica getJuego();
     }
 
+    Thread myThread;
+    Runnable myRunnable;
+
     //titulo de los objetos
-    TextView tkg5,tkg10,tkg15,tkg20;
+    TextView tkg5, tkg10, tkg15, tkg20;
     //Checkbox de fuerza masa y nivel
-    CheckBox fuerza,masa,nivel;
+    CheckBox fuerza, masa, nivel;
     /*valores que tomaran la torca de la barra
     @valor fi representa la torca del lado izquierdo
     @valor fi representa la torca del lado izquierdo
      */
-    TextView fi,fd;
+    TextView fi, fd;
+    TextView fit, fdt;
     //botton que servira para quitar las barras del nivel
     Button limpia;
 
@@ -102,8 +101,12 @@ public class Juego extends Fragment {
         //asigna la variable limpia al boton
         limpia = rootView.findViewById(R.id.reset);
         //asigna los valores a los textView
+
         fi = rootView.findViewById(R.id.fi);
         fd = rootView.findViewById(R.id.fd);
+        fit = rootView.findViewById(R.id.torca_izq);
+        fdt = rootView.findViewById(R.id.torca_der);
+
         //Checkbox
         fuerza = rootView.findViewById(R.id.checkbox_fuerzaObj);
         masa = rootView.findViewById(R.id.checkbox_valorMasa);
@@ -144,20 +147,18 @@ public class Juego extends Fragment {
         fuerza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-            if(fuerza.isChecked()){
-                fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
-                fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
-                fi.setVisibility(View.VISIBLE);
-                fd.setVisibility(View.VISIBLE);
-            }
-            else{
-                fi.setVisibility(View.INVISIBLE);
-                fd.setVisibility(View.INVISIBLE);
-                fi.setText("0");
-                fd.setText("0");
-            }
-
+                if(fuerza.isChecked()){
+                    fi.setVisibility(View.VISIBLE);
+                    fd.setVisibility(View.VISIBLE);
+                    fit.setVisibility(View.VISIBLE);
+                    fdt.setVisibility(View.VISIBLE);
+                }
+                else{
+                    fi.setVisibility(View.INVISIBLE);
+                    fd.setVisibility(View.INVISIBLE);
+                    fit.setVisibility(View.INVISIBLE);
+                    fdt.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -171,7 +172,6 @@ public class Juego extends Fragment {
                 }
             }
         });*/
-
 
         //Checa si hay un RadioButton seleccionado
         if (getArguments().containsKey(OPCION_MOSTRAR)) {
