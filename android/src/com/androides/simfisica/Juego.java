@@ -38,6 +38,9 @@ public class Juego extends Fragment {
 
     }
 
+    Thread myThread;
+    Runnable myRunnable;
+
     public static Juego newInstance(int choice) {
 
         Juego fragment = new Juego();
@@ -70,6 +73,28 @@ public class Juego extends Fragment {
                              Bundle savedInstanceState) {
 
         juego = mListener.getJuego();
+
+        myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000); // Waits for 1 second (1000 milliseconds)
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    fi.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            fi.setText(String.valueOf(juego.getBarraTorqueIzquierdo()));
+                            fd.setText(String.valueOf(juego.getBarraTorqueDerecho()));
+                        }});
+                }
+            }
+        };
+
+        myThread = new Thread(myRunnable);
+        myThread.start();
 
         // infla la pantalla de juego en el fragment
         final View rootView = inflater.inflate(R.layout.pantalla_juego, container, false);
@@ -156,8 +181,6 @@ public class Juego extends Fragment {
                 radioGroup.check(radioGroup.getChildAt(mRadioButtonChoice).getId());
             }
         }
-        //cuando el usuario seleciona algun checkbox
-
 
         //Cuando el usuario selecciona alguna opción del menú Mostrar
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -195,7 +218,6 @@ public class Juego extends Fragment {
 
         return rootView;
     }
-
 
     @Override
     public void onAttach(Context context) {
