@@ -1,6 +1,11 @@
 package com.androides.simfisica;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
+
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,7 +18,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 
     VistaJuego libgdxFragment;
 
-//    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
 	protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,15 +63,9 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
      *
      */
     public void displayJuego(){
-
-        // Create libgdx fragment
-//        VistaJuego libgdxFragment = new VistaJuego();
-
-        // Put it inside the framelayout (which is defined in the layout.xml file).
-
-        getSupportFragmentManager().beginTransaction().
-                add(R.id.game_container, libgdxFragment).
-                commit();
+        if (getSupportFragmentManager().findFragmentById(R.id.game_container) == null){
+            getSupportFragmentManager().beginTransaction().add(R.id.game_container, libgdxFragment).commit();
+        }
 
         Juego juegoFragment = Juego.newInstance(mRadioButtonChoice);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -75,6 +73,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
     /**
      * Hace el cambio de hacia el fragmento quiz.
      *
@@ -88,7 +87,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         transaction.commit();
     }
 
-
     /**
      * Crea el objeto simulador y lo regresa en un fragmento libgdx.
      *
@@ -100,7 +98,5 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
     }
 
     @Override
-    public void exit() {
-
-    }
+    public void exit() {}
 }
